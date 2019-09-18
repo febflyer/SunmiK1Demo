@@ -1,0 +1,287 @@
+<resources>
+    <string name="app_name">SunmiK1Demo</string>
+    <string name="divide">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -   end   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</string>
+
+    <string name="more_print">レシートを印刷</string>
+    <string name="more_camera_qrcode">カメラスキャン</string>
+    <string name="more_get_weight_result">重量の結果を取得</string>
+    <string name="more_peeled">容器の重さを除外成功</string>
+    <string name="more_unpeeled">容器の重さを除外失敗</string>
+    <string name="more_read_card">自動カードを読む</string>
+    <!-- T more-->
+    <string name="wx_pay">Wechat pay</string>
+    <!--  more-->
+    <string name="more_sub">サブスクリーンとの交互接続</string>
+    <string name="more_show_thevideo">動画を見る</string>
+    <string name="more_prints">印刷</string>
+    <string name="more_camera">カメラ</string>
+    <string name="more_camera_code">カメラスキャン</string>
+    <string name="more_scale">電子はかり</string>
+    <string name="more_get_weight">Take weight</string>
+    <string name="more_peele">Tare</string>
+    <string name="more_clear">Zero-setting</string>
+    <string name="more_num_peele">Preset tare</string>
+    <string name="more_clear_peele">Clear tare</string>
+    <string name="more_reader">リーダー</string>
+
+    <!--单位-->
+    <string name="units_tin">本</string>
+    <string name="units_kg">KG</string>
+    <string name="units_each">袋</string>
+    <string name="units_bag">個</string>
+    <string name="units_money">¥</string>
+    <string name="units_money_units">¥</string>
+
+    <!--商品-->
+    <string name="goods_juice">飲み物</string>
+    <string name="goods_fruit">果物</string>
+    <string name="goods_snacks">お菓子</string>
+    <string name="goods_vegetables">野菜</string>
+    <string name="goods_apple">リンゴ</string>
+    <string name="goods_pear">ナシ</string>
+    <string name="goods_banana">バナナ</string>
+    <string name="goods_pitaya">ドラゴンフルーツ</string>
+    <string name="goods_coke">コーラ</string>
+    <string name="goods_sprite">スプライト</string>
+    <string name="goods_red_bull">レッドブル</string>
+    <string name="goods_orange_juice">オレンジジュース</string>
+    <string name="goods_gift">Gift</string>
+    <string name="goods_sc_1">キウイフルーツ</string>
+    <string name="goods_sc_2">パイナップル</string>
+    <string name="goods_sc_3">レモン</string>
+    <string name="goods_sc_4">オレンジ</string>
+    <string name="goods_scs_1">唐辛子</string>
+    <string name="goods_scs_2">大根</string>
+    <string name="goods_scs_3">キャベツ</string>
+    <string name="goods_scs_4">紫キャベツ</string>
+
+    <string name="goods_1">コカ・コーラゼロ</string>
+    <string name="goods_2">スプライトゼロ</string>
+    <string name="goods_3">緑茶</string>
+    <string name="goods_4">ウーロン茶</string>
+    <string name="goods_5">松の実</string>
+    <string name="goods_6">ヒマワリの種</string>
+    <string name="goods_7">クラッカー</string>
+    <string name="goods_8">海苔味クラッカー</string>
+
+
+    <!--提示用语-->
+    <string name="tips_fruit_apple">リンゴを電子はかりの上に置いてください</string>
+    <string name="tips_fruit_pear">ナシを電子はかりの上に置いてください</string>
+    <string name="tips_fruit_banana">バナナを電子はかりの上に置いてください</string>
+    <string name="tips_fruit_pitaya">ドラゴンフルーツを電子はかりの上に置いてください</string>
+    <string name="tips_fruit_please">ください</string>
+    <string name="tips_fruit_put"> を電子はかりの上に置いて</string>
+    <string name="tips_pay_money">お客様の現金をお受け取りください</string>
+    <string name="tips_pay_qrcode">お客様の支払QRコードを読み取ってください、支払完了しました</string>
+    <string name="tips_bye">ご来店ありがとうございました</string>
+    <string name="tips_bye_again">またのご利用お待ちしております</string>
+    <string name="tips_cancel">取り消し</string>
+    <string name="tips_confirm">完了</string>
+    <string name="tips_success">確定</string>
+    <string name="tips_yes">成功</string>
+    <string name="tips_fail">失敗</string>
+    <string name="tips_net_fail">インターネットの接続に失敗しました</string>
+    <string name="tips_exit">もう一度戻るボタンを押してください</string>
+    <string name="tips_pay_real">（顔認証支払、支払0.01元）</string>
+    <string name="tips_no_find_smile_title">顔を認識できませんでした</string>
+    <string name="tips_find_smile_content">当該機能は展示用に使用されております。開通が必要な場合はSUNMI販売部に連絡してください。またはSUNMIレジを使用してください。</string>
+
+
+    <!--fruitdialog-->
+    <string name="fruit_unit_price">単価（元/kg）</string>
+    <string name="fruit_kg">重さ（kg）</string>
+    <string name="fruit_total">合計（元）</string>
+    <string name="fruit_add">添加</string>
+
+    <!--paydialog-->
+    <string name="pay_money">現金</string>
+    <string name="pay_ali_wx">Wechatペイ/Aliペイ</string>
+    <string name="pay_face">顔認証決済</string>
+    <string name="pay_code">QRコード決済</string>
+    <string name="pay_unipay_code">銀聯決済</string>
+    <string name="pay_face_tips">顔をカメラの認識範囲に近づけ、支払を開始してください</string>
+    <string name="pay_face_tips_pay">注意：顔認証支払は実際に引き落としされます</string>
+    <string name="pay_noface">外部接続機器を確認できませんでした</string>
+    <string name="pay_noface_change">接続を確認し、もう一度お試しください。もしくは、他の決済方法を選択してください。</string>
+    <string name="pay_fail_tips">もう一度決済を実行してください。もしくは、他の決済方法を選択してください。</string>
+    <string name="pay_need_money">受取り額：</string>
+    <string name="pay_give_money">支払額：</string>
+    <string name="pay_confirm">決済を確認致しました</string>
+    <string name="pay_confirm_true">受取り済：</string>
+    <string name="pay_pay_true">支払済：</string>
+    <string name="pay_paying">決済中...</string>
+    <string name="pay_repay">再決済</string>
+    <string name="pay_get_moeny">支払を開始</string>
+    <string name="pay_fail">決済失敗</string>
+    <string name="pay_pay_moeny">決済金額：</string>
+    <string name="pay_total_moeny">合計金額：</string>
+    <string name="pay_thank_you">ご利用ありがとうございました</string>
+    <string name="pay_paying_wait">決済中、お待ちください</string>
+    <string name="pay_again">もう一度</string>
+    <string name="pay_by_other">他の決済方法</string>
+
+    <!--收银演示菜单-->
+    <string name="menus_title">レジ実演プログラム</string>
+    <string name="menus_title1">SUNMIレジ実演デモ</string>
+    <string name="menus_title2">SUNMIレジ</string>
+    <string name="menus_title3">SUNMIへようこそ</string>
+    <string name="menus_number">商品コード</string>
+    <string name="menus_unit_price">単価</string>
+    <string name="menus_unit_num">個数/重さ</string>
+    <string name="menus_goods_name">商品名</string>
+    <string name="menus_more">その他（機能）</string>
+
+    <!--购物车菜单-->
+    <string name="shop_car">ショッピングカート</string>
+    <string name="shop_car_nothing">ショッピングカートの中に商品はありません</string>
+    <string name="goods_nothing">品切れです</string>
+    <string name="shop_car_clear">空にする</string>
+    <string name="shop_car_total">合計</string>
+    <string name="shop_car_offer">セール</string>
+    <string name="shop_car_number">数量</string>
+    <string name="shop_car_code">商品コード</string>
+    <string name="shop_car_receivable">受取り額</string>
+    <string name="shop_car_goods_name">商品名</string>
+    <string name="shop_car_unit_money">金額</string>
+    <string name="shop_car_totle2">合計：</string>
+    <string name="shop_car_go_pay">スピード決済</string>
+    <string name="shop_car_vip_pay">会員決済</string>
+    <string name="shop_car_vip_pay_tips">会員の携帯番号を入力してください</string>
+
+    <!--奶茶商品-->
+    <string name="tea_goods1">Signboard milk tea</string>
+    <string name="tea_goods2">Yuanyang duck milk tea</string>
+    <string name="tea_goods3">Cappuccino</string>
+    <string name="tea_goods4">Kumquat juice</string>
+    <string name="tea_goods5">Papaya juice</string>
+    <string name="tea_goods6">Double skin milk</string>
+    <string name="tea_goods7">Latte</string>
+    <string name="tea_goods8">Lemon juice</string>
+    <string name="tea_goods9">Apple Juice</string>
+    <string name="tea_goods10">Watermelon Juice</string>
+
+    <!--service状态-->
+    <string name="service_stop">Connection interrupts with remote service</string>
+    <string name="service_success">Succeed to Bind with remote service</string>
+    <string name="service_second">Communication with the customer screen service is good</string>
+    <string name="service_second_app">Communication with the customer screen App is good</string>
+
+    <!--小票打印-->
+    <string name="print_proofs">印刷プレビュー</string>
+    <string name="print_order_number">予約番号：</string>
+    <string name="print_order_time">受付時間：</string>
+    <string name="print_payment_method">決済方法：</string>
+    <string name="print_ali_wx">Aliペイ/Wechatペイ</string>
+    <string name="print_tips_havemoney">本決済は実際の引き落としとなります。口座情報をご確認ください</string>
+    <string name="print_tips_nomoney">本決済はデモストレーションであり、実際の引き落としは発生致しません</string>
+    <string name="print_thanks">SUNMIをご利用いただきありがとうございました!</string>
+    <string name="print_total_payment">累計金額：</string>
+    <string name="print_real_payment">実際の受取額：</string>
+    <string name="print_rmb">¥</string>
+
+    <string name="more_title_1">機器の交互接続</string>
+    <string name="more_title_2">商品管理</string>
+    <string name="more_title_3">決済方法</string>
+    <string name="more_title_4">スマートウォッチ対応</string>
+    <string name="more_title_5">商品が入庫する</string>
+    <string name="more_title_6">テストモジュール</string>
+
+
+    <string name="more_goods_1">詳細が必要な商品を選んでください</string>
+    <string name="more_goods_2">重さを測る必要がある商品</string>
+    <string name="more_goods_3">果物、野菜</string>
+    <string name="more_goods_4">重さを測る必要がない商品</string>
+    <string name="more_goods_5">飲み物、お菓子</string>
+
+    <string name="more_paymode_1">顔認証支払モード</string>
+    <string name="more_paymode_2">顔認証支払を保存</string>
+    <string name="more_paymode_vip">会員決済モード</string>
+    <string name="more_paymode_vip_tips">決済する前に携帯番号を入力すると、顔認証時は携帯番号の入力は必要ありません</string>
+    <string name="more_paymode_payment">SUNMIレジ支払モード</string>
+    <string name="more_paymode_payment_tips">SUNMIレジを使用して顔認証支払をする場合は、まずSUNMIレジを導入してください。</string>
+
+    <!--手环解锁-->
+    <string name="unlock_app_lock">システムはロックされました</string>
+    <string name="unlock_hello">こんにちは,</string>
+    <string name="unlock_lock_check_unlock">ロック中、解除を押してください</string>
+    <string name="unlock_lock_pwd">パスワードを解除</string>
+    <string name="unlock_lock_tips">スマートウォッチを携帯して機器に近づきロックを解除してください。もしくはスクリーンの右上からパスワードを入力してロックを解除してください。</string>
+    <string name="unlock_pwd_error">パスワードが間違っています！</string>
+    <string name="unlock_pwd_tips">パスワードを入力してください</string>
+    <string name="unlock_success">解除成功</string>
+    <string name="unlock_touch_header">自分のアイコンをタッチしてください</string>
+    <string name="unlock_unlocking">ロックを解除しています...</string>
+    <string name="user_hello_am">おはようございます，</string>
+    <string name="user_hello_pm">こんにちは，</string>
+
+    <string name="more_bracelet_add">添加</string>
+    <string name="more_bracelet_auto_info">自動入力</string>
+    <string name="more_bracelet_conncet">接続済み</string>
+    <string name="more_bracelet_connect_devices">機器を接続可能</string>
+    <string name="more_bracelet_connect_info">接続後にインフォメーションの分類をします</string>
+    <string name="more_bracelet_connected_devices">機器を接続済み</string>
+    <string name="more_bracelet_open">画面を開きロックを解除</string>
+    <string name="more_bracelet_pwd">予備のパスワード</string>
+    <string name="more_bracelet_remove">削除</string>
+    <string name="more_bracelet_shop">マクドナルド</string>
+    <string name="more_bracelet_statue_1">スマートウォッチ接続はオフのままです</string>
+    <string name="more_bracelet_statue_2">スマートウォッチに接続していません</string>
+    <string name="more_bracelet_statue_3">遠隔解除中</string>
+    <string name="more_bracelet_tips_overuser">スマートウォッチの接続数は上限に達しました</string>
+    <string name="more_bracelet_tips_tip">主機器１台は最多で10台のスマートウォッチに接続できます。新たにスマートウォッチを接続する場合は、他の接続を切ってから接続してください。</string>
+    <string name="more_bracelet_unconncet">未接続</string>
+    <string name="more_bracelet_user_1">艾玛</string>
+    <string name="more_bracelet_user_10">麦克里</string>
+    <string name="more_bracelet_user_11">米可</string>
+    <string name="more_bracelet_user_12">苏菡</string>
+    <string name="more_bracelet_user_13">羽超</string>
+    <string name="more_bracelet_user_2">陈一凡</string>
+    <string name="more_bracelet_user_3">杰瑞</string>
+    <string name="more_bracelet_user_4">肯豆</string>
+    <string name="more_bracelet_user_5">李大卫</string>
+    <string name="more_bracelet_user_6">林雨</string>
+    <string name="more_bracelet_user_7">露西</string>
+    <string name="more_bracelet_user_8">陆鹿</string>
+    <string name="more_bracelet_user_9">玛丽安</string>
+    <string name="lock_domain">システムロック</string>
+    <string name="menus_lock">手動解除</string>
+
+
+    <string name="key_num_0">0</string>
+    <string name="key_num_1">1</string>
+    <string name="key_num_2">2</string>
+    <string name="key_num_3">3</string>
+    <string name="key_num_4">4</string>
+    <string name="key_num_5">5</string>
+    <string name="key_num_6">6</string>
+    <string name="key_num_7">7</string>
+    <string name="key_num_8">8</string>
+    <string name="key_num_9">9</string>
+
+    <!--电子秤-->
+    <string name="scale_max">Max:6/15kg</string>
+    <string name="scale_min">Min:40g</string>
+    <string name="scale_unit">e=d=2/5g</string>
+    <string name="scale_stable">安定</string>
+    <string name="scale_net">容器を除いた重さ</string>
+    <string name="scale_zero">ゼロ位</string>
+    <string name="scale_net_kg">容器を除いた重さ(kg)</string>
+    <string name="scale_net_nopnet">容器を含む重さ(kg)</string>
+    <string name="scale_pnet_kg">容器の重さ（kg）</string>
+    <string name="scale_price">単価（元/kg）</string>
+    <string name="scale_total_money">合計（元）</string>
+    <string name="scale_over_max">重量オーバー</string>
+    <string name="scale_over_mix">重量不足</string>
+    <string name="scale_tips_havenumpent">既に容器の重さが設定済みのため、除外ことはできません</string>
+    <string name = "scale_tips_clearfail">容器の重さを除外失敗、重量は０未満です</string>
+
+    <string name="product_id">商品番号</string>
+    <string name="delete">削除</string>
+    <string name="add_icon">写真を追加する</string>
+    <string name="units">単位</string>
+    <string name="save">保存</string>
+    <string name="inventory">在庫</string>
+
+
+</resources>

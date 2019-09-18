@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sunmi.sunmik1demo">
+
+    <!-- 显示系统窗口权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 在 屏幕最顶部显示addview -->
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <!--非接服务权限-->
+    <uses-permission android:name="com.sunmi.idcard.permission.ACCESS_SERVICE"/>
+    <!--收发卡机服务权限-->
+    <uses-permission android:name="android.sunmi.permission.MIFARECARD_ACCESS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.MoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
+            />
+
+        <service android:name="com.sunmi.sunmik1demo.unlock.UnlockServer" />
+        <service android:name=".unlock.BleService"/>
+        <activity
+            android:name="com.sunmi.sunmik1demo.ui.UnlockActivity"
+            android:launchMode="singleTask"
+        />
+
+        <activity
+            android:name="com.sunmi.sunmik1demo.dialog.ExclusiveModeDialog"
+            />
+
+    </application>
+
+</manifest>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:andoird="http://schemas.android.com/apk/res/android"
+    andoird:layout_width="match_parent"
+    andoird:layout_height="match_parent"
+    andoird:orientation="vertical">
+
+    <LinearLayout
+        andoird:layout_width="match_parent"
+        andoird:layout_height="match_parent"
+        andoird:orientation="horizontal">
+
+        <include
+            andoird:layout_width="0.0dip"
+            andoird:layout_height="match_parent"
+            andoird:layout_weight="1"
+            layout="@layout/more_menu"/>
+
+        <LinearLayout
+            andoird:layout_width="0.0dip"
+            andoird:layout_height="match_parent"
+            andoird:layout_weight="3.5"
+            andoird:orientation="horizontal">
+
+            <FrameLayout
+                andoird:id="@+id/container"
+                andoird:layout_width="0.0dip"
+                andoird:layout_height="match_parent"
+                andoird:layout_weight="2.5" />
+
+            <FrameLayout
+                andoird:id="@+id/fragment_2"
+                andoird:layout_width="0.0dip"
+                andoird:layout_height="match_parent"
+                andoird:layout_weight="2.5"
+                andoird:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

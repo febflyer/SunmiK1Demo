@@ -1,0 +1,127 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+    }
+}
+
+greendao {
+    schemaVersion 1
+    daoPackage 'com.sunmi.sunmik1demo.bean'
+    targetGenDir 'src/main/java'
+}
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.sunmi.sunmik1demo"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 24
+        versionName "2.0.26"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a'//, 'x86_64', 'arm64-v8a'
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+    // Specifies a flavor dimension.
+    flavorDimensions "demo"
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+        debug {
+            minifyEnabled false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+    }
+    productFlavors {
+
+        S {
+            dimension "demo"
+            applicationId "com.sunmi.sunmik1demo.s"
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    //配置输出apk的名称
+    applicationVariants.all { variant ->
+        //这个修改输出的APK路径
+//        if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
+//            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/app/build/outputs/apk")
+//        }
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+            //这个修改输出APK的文件名
+            apkData.outputFileName = "SunmiK1Demo_v" +
+                    variant.versionName +
+                    ".apk"
+        }
+    }
+    sourceSets {
+        main {
+            jni.srcDirs = []  //这一行加不加都可以（mayflower:这行解as某bug的，最好加上）
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    useLibrary 'org.apache.http.legacy'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.sunmi:DS_Lib:1.0.16'
+    implementation 'com.flipboard:bottomsheet-core:1.5.3'
+    //    implementation 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    //    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    //    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    //    compile 'com.j256.ormlite:ormlite-android:5.0'
+    //    compile 'com.stepstone.stepper:material-stepper:4.3.1'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
+    implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+    implementation 'com.android.support:design:26.1.0'
+    implementation('com.sunmi:SunmiWidgetLib:1.0.1') {
+        exclude group: 'com.android.support'
+        exclude module: 'support-annotations:'
+    }
+    implementation 'com.sunmi:printerlibrary:1.0.5'
+}

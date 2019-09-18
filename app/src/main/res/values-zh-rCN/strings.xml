@@ -1,0 +1,294 @@
+<resources>
+    <string name="app_name">SunmiK1Demo</string>
+    <string name="divide">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -   end   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</string>
+
+    <string name="more_print">打印一张小票</string>
+    <string name="more_camera_qrcode">摄像头扫码</string>
+    <string name="more_get_weight_result">取重量结果</string>
+    <string name="more_peeled">去皮成功</string>
+    <string name="more_unpeeled">去皮失败</string>
+    <string name="more_read_card">自动读卡</string>
+    <!-- T more-->
+    <string name="wx_pay">微信支付</string>
+    <string name="more_sub">与副屏交互</string>
+
+    <string name="more_show_thevideo">播放一段视频</string>
+    <string name="more_prints">打印</string>
+    <string name="more_camera">摄像头</string>
+    <string name="more_camera_code">摄像头扫码</string>
+    <string name="more_scale">电子秤</string>
+    <string name="more_get_weight">取重量</string>
+    <string name="more_peele">去皮</string>
+    <string name="more_clear">清零</string>
+    <string name="more_num_peele">数字去皮</string>
+    <string name="more_clear_peele">清皮</string>
+    <string name="more_reader">读卡器</string>
+
+    <!--单位-->
+    <string name="units_tin">瓶</string>
+    <string name="units_kg">千克</string>
+    <string name="units_bag">袋</string>
+    <string name="units_each">份</string>
+    <string name="units_money">¥</string>
+    <string name="units_money_units">¥</string>
+
+    <!--商品-->
+    <string name="goods_juice">饮料</string>
+    <string name="goods_fruit">水果</string>
+    <string name="goods_snacks">零食</string>
+    <string name="goods_vegetables">蔬菜</string>
+
+    <string name="goods_apple">苹果</string>
+    <string name="goods_pear">梨子</string>
+    <string name="goods_banana">香蕉</string>
+    <string name="goods_pitaya">火龙果</string>
+    <string name="goods_coke">可乐</string>
+    <string name="goods_sprite">饮料</string>
+    <string name="goods_red_bull">红牛</string>
+    <string name="goods_orange_juice">橙汁</string>
+    <string name="goods_gift">417发布会礼品</string>
+    <string name="goods_sc_1">猕猴桃</string>
+    <string name="goods_sc_2">菠萝</string>
+    <string name="goods_sc_3">柠檬</string>
+    <string name="goods_sc_4">橘子</string>
+
+    <string name="goods_scs_1">辣椒</string>
+    <string name="goods_scs_2">萝卜</string>
+    <string name="goods_scs_3">包菜</string>
+    <string name="goods_scs_4">紫甘蓝</string>
+
+    <string name="goods_1">可口可乐零度</string>
+    <string name="goods_2">雪碧零卡</string>
+    <string name="goods_3">统一绿茶</string>
+    <string name="goods_4">三得利乌龙茶</string>
+    <string name="goods_5">百草味东北松子</string>
+    <string name="goods_6">百草味话梅瓜子</string>
+    <string name="goods_7">五谷味梳打饼干</string>
+    <string name="goods_8">海苔味梳打饼干</string>
+
+
+    <!--提示用语-->
+    <string name="tips_fruit_apple">请将苹果放到电子秤上</string>
+    <string name="tips_fruit_pear">请将梨子放到电子秤上</string>
+    <string name="tips_fruit_banana">请将香蕉放到电子秤上</string>
+    <string name="tips_fruit_pitaya">请将火龙果放到电子秤上</string>
+    <string name="tips_fruit_please">请将</string>
+    <string name="tips_fruit_put">放到电子秤上</string>
+    <string name="tips_pay_money">请收取顾客的现金</string>
+    <string name="tips_pay_qrcode">请扫描顾客的收款码,完成收款</string>
+    <string name="tips_bye">客官您慢走</string>
+    <string name="tips_bye_again">欢迎下次光临</string>
+    <string name="tips_cancel">取消</string>
+    <string name="tips_confirm">完成</string>
+    <string name="tips_yes">确定</string>
+    <string name="tips_success">成功</string>
+    <string name="tips_fail">失败</string>
+    <string name="tips_net_fail">网络连接失败</string>
+    <string name="tips_exit">再按一次退出</string>
+    <string name="tips_pay_real">(人脸支付，扣款0.01元)</string>
+    <string name="tips_no_find_smile_title">暂未发现可用的刷脸服务</string>
+    <string name="tips_find_smile_content">该功能现仅供内部演示使用，如需开通，请联系商米销售团队，或使用商米收银台</string>
+
+
+    <!--fruitdialog-->
+    <string name="fruit_unit_price">单价（元/千克）</string>
+    <string name="fruit_kg">计重（千克）</string>
+    <string name="fruit_total">小计（元）</string>
+    <string name="fruit_add">添加</string>
+
+    <!--paydialog-->
+    <string name="pay_money">现金</string>
+    <string name="pay_ali_wx">微信/支付宝</string>
+    <string name="pay_face">人脸支付</string>
+    <string name="pay_code">扫码支付</string>
+    <string name="pay_unipay_code">银联支付</string>
+    <string name="pay_face_tips">请将面部靠近摄像头识别范围，开始付款 </string>
+    <string name="pay_face_tips_pay">温馨提示：人脸支付为真实定额扣款</string>
+    <string name="pay_noface">暂未发现可用的外置设备</string>
+    <string name="pay_noface_change">请检查连接并重启应用后重试，或选用其他支付方式</string>
+    <string name="pay_fail_tips">请重新付款或选择其他方式 </string>
+    <string name="pay_need_money">需收款：</string>
+    <string name="pay_give_money">需付款：</string>
+    <string name="pay_confirm">确认已收款</string>
+    <string name="pay_confirm_true">已收款：</string>
+    <string name="pay_pay_true">已付款：</string>
+    <string name="pay_paying">支付中...</string>
+    <string name="pay_repay">重新支付</string>
+    <string name="pay_get_moeny">开始付款</string>
+    <string name="pay_fail">支付失败！</string>
+    <string name="pay_pay_moeny">支付金额：</string>
+    <string name="pay_total_moeny">总金额：</string>
+    <string name="pay_thank_you">感谢您的惠顾！</string>
+    <string name="pay_paying_wait">正在支付，请稍候</string>
+    <string name="pay_again">重试</string>
+    <string name="pay_by_other">其他付款方式</string>
+
+
+    <!--收银演示菜单-->
+    <string name="menus_title">收银演示程序</string>
+    <string name="menus_title1">商米收银演示demo</string>
+    <string name="menus_title2">商米收银</string>
+    <string name="menus_title3">SUNMI 欢迎你</string>
+    <string name="menus_number">编号</string>
+    <string name="menus_unit_price">单价</string>
+    <string name="menus_unit_num">数/重量</string>
+    <string name="menus_goods_name">品名</string>
+    <string name="menus_more">更多功能</string>
+
+    <!--购物车菜单-->
+    <string name="shop_car">购物车</string>
+    <string name="shop_car_nothing">购物车中没有商品哟！</string>
+    <string name="goods_nothing">暂无商品</string>
+    <string name="shop_car_clear">清空</string>
+    <string name="shop_car_total">总计</string>
+    <string name="shop_car_offer">优惠</string>
+    <string name="shop_car_number">数量</string>
+    <string name="shop_car_code">编号</string>
+    <string name="shop_car_receivable">应收</string>
+    <string name="shop_car_goods_name">品名</string>
+    <string name="shop_car_unit_money">金额</string>
+    <string name="shop_car_totle2">合计:</string>
+    <string name="shop_car_go_pay">快速支付</string>
+    <string name="shop_car_vip_pay">会员支付</string>
+    <string name="shop_car_vip_pay_tips">输入会员手机号码</string>
+
+    <!--奶茶商品-->
+    <string name="tea_goods1">招牌奶茶</string>
+    <string name="tea_goods2">鸳鸯奶茶</string>
+    <string name="tea_goods3">卡布奇诺</string>
+    <string name="tea_goods4">金桔果汁</string>
+    <string name="tea_goods5">木瓜果汁</string>
+    <string name="tea_goods6">双皮奶</string>
+    <string name="tea_goods7">拿铁</string>
+    <string name="tea_goods8">柠檬果汁</string>
+    <string name="tea_goods9">苹果汁</string>
+    <string name="tea_goods10">西瓜汁</string>
+
+    <!--service状态-->
+    <string name="service_stop">与远程服务连接中断</string>
+    <string name="service_success">与远程服务绑定成功</string>
+    <string name="service_second">与副屏服务通讯正常</string>
+    <string name="service_second_app">与副屏app通讯正常</string>
+
+    <!--小票打印-->
+    <string name="print_proofs">打印样张</string>
+    <string name="print_order_number">订单编号：</string>
+    <string name="print_order_time">下单时间：</string>
+    <string name="print_payment_method">支付方式：</string>
+    <string name="print_ali_wx">支付宝/微信</string>
+    <string name="print_tips_havemoney">此单消费为真实定额交易，请核实你的付款账户信息</string>
+    <string name="print_tips_nomoney">此单消费仅为功能演示，非真实交易</string>
+    <string name="print_thanks">感谢选择商米!</string>
+    <string name="print_total_payment">累计金额：</string>
+    <string name="print_real_payment">实际收款：</string>
+    <string name="print_rmb">元</string>
+
+    <string name="more_title_1">设备交互</string>
+    <string name="more_title_2">商品管理</string>
+    <string name="more_title_3">支付方式</string>
+    <string name="more_title_4">手环匹配</string>
+    <string name="more_title_5">商品入库</string>
+    <string name="more_title_6">模块测试</string>
+
+
+    <string name="more_goods_1">选择需要展示的商品</string>
+    <string name="more_goods_2">称重类商品</string>
+    <string name="more_goods_3">水果、蔬菜</string>
+    <string name="more_goods_4">无需称重类商品</string>
+    <string name="more_goods_5">饮料、零食</string>
+
+    <string name="more_paymode_1">开启后将关闭其他支付方式</string>
+    <string name="more_paymode_2">仅保留刷脸支付</string>
+    <string name="more_paymode_vip">会员支付模式</string>
+    <string name="more_paymode_vip_tips">刷脸支付时顾客无需输入手机号。该功能用于展示由店员录入顾客手机号时的场景</string>
+    <string name="more_paymode_payment">扫码真实扣款</string>
+    <string name="more_paymode_payment_tips">开启后可以实现真实扣款（需要安装商米收银台App），关闭后仅支持模拟扫码扣款</string>
+
+
+    <!--手环解锁-->
+    <string name="unlock_app_lock">系统已锁定</string>
+    <string name="unlock_hello">你好，</string>
+    <string name="unlock_lock_check_unlock">已锁定，点击解锁</string>
+    <string name="unlock_lock_pwd">密码解锁</string>
+    <string name="unlock_lock_tips">请佩戴好手环靠近设备解锁，或通过屏幕右上角数字密码锁解锁</string>
+    <string name="unlock_pwd_error">密码错误！</string>
+    <string name="unlock_pwd_tips">输入密码解锁</string>
+    <string name="unlock_success">解锁成功</string>
+    <string name="unlock_touch_header">轻触自己的头像</string>
+    <string name="unlock_unlocking">正在为你解锁...</string>
+    <string name="user_hello_am">上午好，</string>
+    <string name="user_hello_pm">下午好，</string>
+
+    <string name="more_bracelet_add">添加</string>
+    <string name="more_bracelet_auto_info">自动填充信息</string>
+    <string name="more_bracelet_conncet">已连接</string>
+    <string name="more_bracelet_connect_devices">可配对设备</string>
+    <string name="more_bracelet_connect_info">连接后分配角色信息</string>
+    <string name="more_bracelet_connected_devices">已配对设备</string>
+    <string name="more_bracelet_open">开启屏幕解锁</string>
+    <string name="more_bracelet_pwd">备用解锁密码</string>
+    <string name="more_bracelet_remove">删除</string>
+    <string name="more_bracelet_shop">麦当劳</string>
+    <string name="more_bracelet_statue_1">手环连接未开启</string>
+    <string name="more_bracelet_statue_2">暂未连接手环</string>
+    <string name="more_bracelet_statue_3">隔空解锁正在运行</string>
+    <string name="more_bracelet_tips_overuser">手环连接达到上限！</string>
+    <string name="more_bracelet_tips_tip">一台主设备最多能同时连接10个手环，如需连接新的手环，请断开其他已连接手环的连接状态</string>
+    <string name="more_bracelet_unconncet">未连接</string>
+    <string name="more_bracelet_user_1">艾玛</string>
+    <string name="more_bracelet_user_10">麦克里</string>
+    <string name="more_bracelet_user_11">米可</string>
+    <string name="more_bracelet_user_12">苏菡</string>
+    <string name="more_bracelet_user_13">羽超</string>
+    <string name="more_bracelet_user_2">陈一凡</string>
+    <string name="more_bracelet_user_3">杰瑞</string>
+    <string name="more_bracelet_user_4">肯豆</string>
+    <string name="more_bracelet_user_5">李大卫</string>
+    <string name="more_bracelet_user_6">林雨</string>
+    <string name="more_bracelet_user_7">露西</string>
+    <string name="more_bracelet_user_8">陆鹿</string>
+    <string name="more_bracelet_user_9">玛丽安</string>
+    <string name="lock_domain">锁定系统</string>
+    <string name="menus_lock">手动解锁</string>
+    <string name="key_num_0">0</string>
+    <string name="key_num_1">1</string>
+    <string name="key_num_2">2</string>
+    <string name="key_num_3">3</string>
+    <string name="key_num_4">4</string>
+    <string name="key_num_5">5</string>
+    <string name="key_num_6">6</string>
+    <string name="key_num_7">7</string>
+    <string name="key_num_8">8</string>
+    <string name="key_num_9">9</string>
+
+
+    <!--电子秤-->
+    <string name="scale_max">最大秤量：6/15kg</string>
+    <string name="scale_min">最小秤量：40g</string>
+    <string name="scale_unit">分度值 e=2/5g</string>
+    <string name="scale_stable">稳定</string>
+    <string name="scale_net">净重</string>
+    <string name="scale_zero">零位</string>
+    <string name="scale_net_kg">净重(kg)</string>
+    <string name="scale_net_nopnet">计重(kg)</string>
+    <string name="scale_pnet_kg">皮重(kg)</string>
+    <string name="scale_price">单价(元/kg)</string>
+    <string name="scale_total_money">总价(元)</string>
+    <string name="scale_over_max">超载</string>
+    <string name="scale_over_mix">欠载</string>
+    <string name="scale_tips_havenumpent">电子秤已经设置数字皮重，无法去皮</string>
+    <string name = "scale_tips_clearfail">清皮失败，毛重不为0</string>
+
+    <string name="product_id">商品编号</string>
+    <string name="delete">删除</string>
+    <string name="add_icon">添加图片</string>
+    <string name="units">单位</string>
+    <string name="save">保存</string>
+    <string name="inventory">库存</string>
+    <string name="pay_pay_money_setting">1分钱扣款</string>
+    <string name="pay_pay_money_tip">开启后始终按0.01元扣款，关闭则按显示金额扣款</string>
+    <string name="pay_sunmipay_tip">您的设备尚未安装商米收银台，暂时无法支持该功能</string>
+    <string name="pay_start_qrcode">开始扫码支付</string>
+
+
+</resources>
