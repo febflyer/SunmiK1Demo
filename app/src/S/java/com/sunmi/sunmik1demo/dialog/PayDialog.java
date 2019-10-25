@@ -796,7 +796,6 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
     }
 
     private void updateTextDisplay(int selet, String context, int state) {
-
         if (!payment) {
             if (null != textDisplays && !textDisplays.isShow) {
                 textDisplays.show();

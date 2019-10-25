@@ -17,7 +17,7 @@ import com.sunmi.sunmik1demo.utils.ByteUtils;
 public class KCodeScannerPresenter {
     private static final String TAG = "KCodeScannerPresenter";
 
-    private static final int CMD_WAIT_TIME = 500;   //EM20-80官方文档：正常应答时间为500ms，但经过广播后肯定不止吧
+    private static final int MAX_RESPONSE_TIME = 500;   //EM20-80官方文档：正常应答时间为500ms，但经过广播后肯定不止吧
     private boolean bCmdWaitting = false;       //等待命令的返回中
     //action
     private static final String ACTION_SEND_DATA = "com.sunmi.scanner.Setting_cmd";
@@ -148,8 +148,12 @@ public class KCodeScannerPresenter {
                 break;
             case 1:
                 bCmdWaitting = true;
-                sendData(ByteUtils.hexStr2Str("7E01303030304053454E495354" +
-                        ByteUtils.str2HexString(String.valueOf(delay>=200 && delay<=3000 ? delay : 1000)) + "3B03"));
+
+//                sendData(ByteUtils.hexStr2Str("7E0130303030404558504C564C30" + "3B03"));      //普通模式，实测不好用
+//                sendData(ByteUtils.hexStr2Str("7E0130303030404558504C564C35" + "3B03"));     //手机模式
+                sendData(ByteUtils.hexStr2Str("7E0130303030" + "40" + ByteUtils.str2HexString("GRBENA1") + "3B03"));   //关闭声音
+//                sendData(ByteUtils.hexStr2Str("7E01303030304053454E495354" +
+//                        ByteUtils.str2HexString(String.valueOf(delay>=200 && delay<=3000 ? delay : 1000)) + "3B03"));
 
                 Thread thread = new Thread(new Runnable() {
                     @Override
@@ -164,7 +168,7 @@ public class KCodeScannerPresenter {
                             }
                         }
                         //最后一个指令是配置了回车后缀，因为是固定要加，可以放这里
-                        sendData("NLS0302010;" + "NLS0313000=" + (wait>0 ? wait : 1000) + ";" + "NLS0310000=0x0D0A;");
+                        sendData("NLS0302010;" + "NLS0313000=" + (wait>0 ? wait : 1000) + ";" + "NLS0310000=0x0D0A;" + "");
 //                        sendData("NLS0302010;" + "NLS0313000=" + (wait>0 ? wait : 1000) + ";" + "NLS0309010;");
                     }
                 });

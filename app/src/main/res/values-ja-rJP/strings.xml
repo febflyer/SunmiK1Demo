@@ -185,7 +185,14 @@
     <string name="more_title_3">決済方法</string>
     <string name="more_title_4">スマートウォッチ対応</string>
     <string name="more_title_5">商品が入庫する</string>
-    <string name="more_title_6">テストモジュール</string>
+    <string name="more_title_6">テストプリンター</string>
+
+    <string name="more_printer_text">印刷文字</string>
+    <string name="more_printer_image">画像を印刷する</string>
+    <string name="more_printer_circulate">サイクリック印刷</string>
+    <string name="more_printer_cut_paper">切纸</string>
+    <string name="more_printer_times">回数</string>
+    <string name="more_printer_interval">間隔が(ms)</string>
 
 
     <string name="more_goods_1">詳細が必要な商品を選んでください</string>

@@ -113,7 +113,7 @@
         android:paddingStart="21.329987dip">
 
         <TextView
-            android:id="@+id/tv_card_reader"
+            android:id="@+id/tv_printer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

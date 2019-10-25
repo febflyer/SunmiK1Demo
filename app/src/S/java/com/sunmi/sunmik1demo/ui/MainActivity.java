@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.Outline;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -71,9 +72,12 @@ import com.sunmi.sunmik1demo.dialog.AddFruitDialogFragment;
 import com.sunmi.sunmik1demo.dialog.PayDialog;
 import com.sunmi.sunmik1demo.eventbus.InstallSmileEvent;
 import com.sunmi.sunmik1demo.eventbus.UpdateUnLockUserEvent;
+import com.sunmi.sunmik1demo.fragment.BackgroundManagerFragment;
 import com.sunmi.sunmik1demo.fragment.GoodsManagerFragment;
 import com.sunmi.sunmik1demo.fragment.PayModeSettingFragment;
+import com.sunmi.sunmik1demo.fragment.PrinterFragment;
 import com.sunmi.sunmik1demo.model.AlipaySmileModel;
+import com.sunmi.sunmik1demo.present.GoodsManagerPresentation;
 import com.sunmi.sunmik1demo.present.TextDisplay;
 import com.sunmi.sunmik1demo.present.VideoDisplay;
 import com.sunmi.sunmik1demo.present.VideoMenuDisplay;
@@ -82,6 +86,7 @@ import com.sunmi.sunmik1demo.presenter.CardReaderPresenter;
 import com.sunmi.sunmik1demo.presenter.HCardSenderPresenter;
 import com.sunmi.sunmik1demo.presenter.KCardReaderPresenter;
 import com.sunmi.sunmik1demo.presenter.KCodeScannerPresenter;
+import com.sunmi.sunmik1demo.presenter.KCodeScannerPresenter2;
 import com.sunmi.sunmik1demo.presenter.KPrinterPresenter;
 import com.sunmi.sunmik1demo.presenter.PayMentPayPresenter;
 import com.sunmi.sunmik1demo.presenter.PrinterPresenter;
@@ -185,6 +190,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ScreenManager screenManager = ScreenManager.getInstance();
     private VideoMenuDisplay videoMenuDisplay = null;
     public TextDisplay textDisplay = null;
+    private GoodsManagerPresentation goodsManagerPresentation = null;
     private PayDialog payDialog;
     private SunmiPrinterService woyouService = null;//商米标准打印 打印服务
     private ExtPrinterService extPrinterService = null;//k1 打印服务
@@ -205,6 +211,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public static boolean isK1 = false;
     public static boolean isVertical = false;
+    public static boolean isSecondIxist = false;
+    public static boolean isSecondVertical = true;     //副屏
     SoundPool soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
 
 
@@ -216,7 +224,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Input2Dialog mInputDialog;
 
     //add by MayFlower----------------------------------------
-    public static KCodeScannerPresenter kCodeScannerPresenter;
+    public static KCodeScannerPresenter2 kCodeScannerPresenter;
     public static CodeScannerPresenter codeScannerPresenter;
     public static KCardReaderPresenter kCardReaderPresenter;
     public static HCardSenderPresenter hCardSenderPresenter;
@@ -245,9 +253,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         isVertical = height > width;
         if (isK1) {
             connectKPrintService();
-        } else {
-            connectPrintService();
         }
+//        else {
+//        if(isSecondIxist && !isSecondVertical){   //反正都连上吧
+            connectPrintService();
+//        }
+
+//        isVertical = false;
+
         EventBus.getDefault().register(this);
         menus.clear();
         initView();
@@ -262,19 +275,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void initScanner(){
-        kCodeScannerPresenter = KCodeScannerPresenter.getInstance();
+        kCodeScannerPresenter = KCodeScannerPresenter2.getInstance();
         kCodeScannerPresenter.start(getApplicationContext());
-        kCodeScannerPresenter.setMode(1,0,0);   //方便测试
+        kCodeScannerPresenter.setMode(1,0,1000);   //方便测试
+//        kCodeScannerPresenter.setKeyDown();
+//        kCodeScannerPresenter.setSuffix("0D0A");
+//        kCodeScannerPresenter.setBuzzer(true);
 
-        kCodeScannerPresenter.setOnDataReceiveListener(new KCodeScannerPresenter.OnDataReceiveListener() {
+        kCodeScannerPresenter.setOnDataReceiveListener(new KCodeScannerPresenter2.OnDataReceiveListener() {
             @Override
             public void onDataReceive(String data) {
-                Log.d(TAG,"扫码广播数据:" + data);
+
+                Log.d(TAG,"扫码广播数据:" + data + "[" + ByteUtils.str2HexString(data)+ "]" +"len:"+data.length()+ "\n");
+//                showToast("扫码广播数据:" + data);
             }
 
             @Override
-            public void onCmdFail(){
-                Log.d(TAG,"广播命令失败，请检查系统版本或硬件连接。");
+            public void onResponseTimeout(){
+                Log.d(TAG,"广播命令返回超时，请检查系统版本或硬件连接。");
                 //这里给没有广播的旧系统直接开串口来扫码吧
                 initSerialScanner();
             }
@@ -728,11 +746,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Log.e(TAG, "屏幕" + displays[i]);
         }
         Display display = screenManager.getPresentationDisplays();
-        if (display != null && !isVertical) {
+
+        //副屏
+        if(display != null) {
+            isSecondIxist = true;
+            DisplayMetrics dm = new DisplayMetrics();
+            display.getMetrics(dm);
+            int width = dm.widthPixels;// 屏幕宽度
+            int height = dm.heightPixels;// 屏幕宽度
+            isSecondVertical = height > width;
+        }
+//        if (display != null && isVertical) {
+        if (isSecondIxist && !isSecondVertical) {
             videoDisplay = new VideoDisplay(this, display, Environment.getExternalStorageDirectory().getPath() + "/video_02.mp4");
             videoMenuDisplay = new VideoMenuDisplay(this, display, Environment.getExternalStorageDirectory().getPath() + "/video_02.mp4");
             textDisplay = new TextDisplay(this, display);
+
+//        goodsManagerPresentation = new GoodsManagerPresentation(this,display);
+//        goodsManagerPresentation.show();
+            videoMenuDisplay.setOnUpdateMenusListener(new VideoMenuDisplay.OnUpdateMenus() {
+                @Override
+                public void onMenusAdd(MenusBean bean) {
+                    menus.add(bean);
+                    float price = 0.00f;
+                    for (MenusBean bean1 : menus) {
+                        price = price + Float.parseFloat(bean1.getMoney().substring(1));
+                    }
+                    tvPrice.setText(ResourcesUtils.getString(MainActivity.this, R.string.units_money_units) + decimalFormat.format(price));
+                    menusAdapter.update(menus);
+                    buildMenuJson(menus, decimalFormat.format(price));
+                }
+            });
         }
+
         mDrinksBean = GoodsCode.getInstance().getDrinks();
         mFruitsBean = GoodsCode.getInstance().getFruits();
         mSnacksBean = GoodsCode.getInstance().getSnacks();
@@ -814,7 +860,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void payCompleteToReMenu() {
-        if (!isVertical) {
+        if(isSecondIxist && !isSecondVertical){
+//        if (!isVertical) {
             llyShopcar.setVisibility(View.GONE);
             rtlEmptyShopcar.setVisibility(View.VISIBLE);
             tvPrice.setText(ResourcesUtils.getString(MainActivity.this, R.string.units_money_units) + "0.00");
@@ -823,7 +870,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             standByTime();
 
-        } else {
+        }
+//        else {
+        if (isVertical) {
             menus.clear();
             tvCarMoeny.setText("");
             tvCar.setText("");
@@ -840,8 +889,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (kPrinterPresenter != null) {
                 kPrinterPresenter.print(goods_data, payMode);
             }
-        } else {
-
+        }
+//        else {
+        if(isSecondIxist && !isSecondVertical){
             if (printerPresenter != null) {
                 printerPresenter.print(goods_data, payMode);
             }
@@ -864,7 +914,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     ivCar.setImageResource(R.drawable.car_gray);
                     bottomSheetLayout.dismissSheet();
                     btnPay.setBackgroundColor(Color.parseColor("#999999"));
-                } else {
+                }
+//                else {        //changed by mayflower on 191022,给K2 MINI的副屏
+                if(isSecondIxist && !isSecondVertical){
                     llyShopcar.setVisibility(View.GONE);
                     rtlEmptyShopcar.setVisibility(View.VISIBLE);
                     menus.clear();
@@ -922,7 +974,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     if (bottomSheetLayout.isSheetShowing()) {
                         bottomSheetLayout.dismissSheet();
                     }
-                    int payModes = (int) SharePreferenceUtil.getParam(this, PayDialog.PAY_MODE_KEY, 6);
+                    int payModes = (int) SharePreferenceUtil.getParam(this, PayDialog.PAY_MODE_KEY, 7);
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("MONEY", tvCarMoeny.getText().toString());
                     bundle1.putString("GOODS", goods_data);
@@ -982,6 +1034,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         vipPayDialog.show();
     }
 
+    public void updateMenus(List<MenusBean> menus, String price){
+    }
 
     private void buildMenuJson(List<MenusBean> menus, String price) {
         try {
@@ -1087,6 +1141,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (event.getKeyCode() == KeyEvent.KEYCODE_POWER) {
                     return super.dispatchKeyEvent(event);
                 }
+//                Log.i("扫码键盘数据","--"+sb.toString() +"--"+ByteUtils.str2HexString(sb.toString()));
+
                 final int len = sb.length();
                 myHandler.postDelayed(new Runnable() {
                     @Override
@@ -1097,6 +1153,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             if (payDialog.isVisible()) {
                                 Log.e(TAG, "支付中");
                             } else {
+                                Log.i(TAG,"扫码键盘数据:"+sb.toString() +"["+ByteUtils.str2HexString(sb.toString())+"]len:" + sb.toString().length());
                                 addDrink(sb.toString());
                             }
                             sb.setLength(0);

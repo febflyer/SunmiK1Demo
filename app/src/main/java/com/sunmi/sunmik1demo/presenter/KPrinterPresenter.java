@@ -52,6 +52,8 @@ public class KPrinterPresenter {
             if (mPrinter.getPrinterStatus() != 0) {
                 return;
             }
+            mPrinter.sendRawData(lineSpacing(25));
+
             mPrinter.lineWrap(1);
             int width = divide2.length() * 5 / 12;
             String goods = formatTitle(width);
@@ -141,6 +143,44 @@ public class KPrinterPresenter {
             mPrinter.cutPaper(0, 0);
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void printText(String string,boolean bCut){
+        try {
+            if (mPrinter.getPrinterStatus() != 0) {
+                return;
+            }
+            if(string.isEmpty())
+                return;
+
+            mPrinter.printText(string);
+            if(bCut)
+                mPrinter.cutPaper(2,0);
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void printImage(Bitmap bitmap,boolean bCut){
+        try {
+            if (mPrinter.getPrinterStatus() != 0) {
+                return;
+            }
+//            if(bitmap == null)
+//                return;
+
+            if (bitmap.getWidth() > 384) {
+                int newHeight = (int) (1.0 * bitmap.getHeight() * 384 / bitmap.getWidth());
+                bitmap = BitmapUtils.scale(bitmap, 384, newHeight);
+            }
+            mPrinter.printBitmap(bitmap, 0);
+            if(bCut)
+                mPrinter.cutPaper(2,0);
+
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
@@ -260,6 +300,15 @@ public class KPrinterPresenter {
     }
 
     private static final byte ESC = 0x1B;// Escape
+
+    //改行距
+    private byte[] lineSpacing(int spacingSize) {
+        byte[] result = new byte[3];
+        result[0] = ESC;
+        result[1] = 0x33;
+        result[2] = (byte)spacingSize;
+        return result;
+    }
 
     /**
      * 字体加粗

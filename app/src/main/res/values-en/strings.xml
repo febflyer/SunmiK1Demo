@@ -185,8 +185,43 @@
     <string name="more_title_3">Method of payment</string>
     <string name="more_title_4">Unlock by bands</string>
     <string name="more_title_5">Add Goods</string>
-    <string name="more_title_6">Module Test</string>
+    <string name="more_title_6">Printer Test</string>
 
+    <string name="more_printer_text">print text</string>
+    <string name="more_printer_image">print image</string>
+    <string name="more_printer_circulate">circulate print</string>
+    <string name="more_printer_cut_paper">cut paper</string>
+    <string name="more_printer_times">times</string>
+    <string name="more_printer_interval">interval(ms)</string>
+
+    <string name="more_printer_receipt">
+------------------------------------------\n
+收银员：自助 \t\t           收银机号：Z1086\n
+消费时间：2019-10-10 20:45:06\n
+------------------------------------------\n
+品名 \t\t       单价X数量 \t           小计\n
+------------------------------------------\n
+枣泥核桃蛋糕\n
+105884 \t       ￥16.90x2 \t         33.80\n
+麻薯\n
+105882 \t       ￥16.90x1 \t         16.90\n
+提拉米苏黄油蛋糕\n
+119876 \t       ￥26.90x1 \t         26.90\n
+葡式蛋挞\n
+105883 \t       ￥12.80x2 \t         25.60\n
+蓝雪 冷冻越南巴沙鱼片\n
+121907 \t       ￥49.90x2 \t         99.80\n
+------------------------------------------\n
+数量合计：8 \t\t          金额总计：  203.0\n
+\t\t\t                   满减金额：  50.00\n
+\t\t\t                   应付金额： 153.00\n
+支付方式：支付宝 \t       实付金额： 153.00\n
+\t\t\t                   找零金额：   0.00\n
+------------------------------------------\n
+地址：上海市杨浦区淞沪路创智天地7号栋3楼\n
+电话：400-6666-509\n
+此小票为测试demo\n
+------------------------------------------\n</string>
 
     <string name="more_goods_1">Select the item to display</string>
     <string name="more_goods_2">Weighing goods</string>

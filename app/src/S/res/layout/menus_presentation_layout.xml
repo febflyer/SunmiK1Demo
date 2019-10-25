@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/lly_bg"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:orientation="horizontal">
 
         <TextView
@@ -19,7 +19,7 @@
             android:paddingStart="16dp"
             android:text="@string/shop_car_code"
             android:textColor="#212121"
-            android:textSize="12sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvName"
@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/shop_car_goods_name"
             android:textColor="#212121"
-            android:textSize="12sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvMoney"
@@ -42,7 +42,7 @@
             android:paddingStart="16dp"
             android:text="@string/shop_car_unit_money"
             android:textColor="#212121"
-            android:textSize="12sp" />
+            android:textSize="24sp" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

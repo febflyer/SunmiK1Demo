@@ -20,7 +20,9 @@ import com.sunmi.sunmik1demo.fragment.BraceletFragment;
 import com.sunmi.sunmik1demo.fragment.DeviceFragment;
 import com.sunmi.sunmik1demo.fragment.GoodsManagerFragment;
 import com.sunmi.sunmik1demo.fragment.PayModeSettingFragment;
+import com.sunmi.sunmik1demo.fragment.PrinterFragment;
 import com.sunmi.sunmik1demo.present.VideoDisplay;
+import com.sunmi.sunmik1demo.utils.ByteUtils;
 import com.sunmi.sunmik1demo.utils.ScreenManager;
 
 
@@ -40,12 +42,13 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
     private BraceletFragment braceletFragment;
     private PayModeSettingFragment payModeSettingFragment;
     private BackgroundManagerFragment backgroundManagerFragment;
+    private PrinterFragment printerFragment;
 
     int openHand = 0;
 
     private TextView tv_device, tv_goods_manage, tv_pay_mode, tv_hand, tv_more;
 
-    private FrameLayout fl_1, fl_2, fl_3, fl_4;
+    private FrameLayout fl_1, fl_2, fl_3, fl_4, fl_5;
 
 
     @Override
@@ -89,7 +92,7 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int action = event.getAction();
-        if (getFirstFragment() instanceof BackgroundManagerFragment) {
+        if (getFirstFragment() instanceof BackgroundManagerFragment || getFirstFragment() instanceof PrinterFragment) {
             return super.dispatchKeyEvent(event);
         }
         switch (action) {
@@ -147,6 +150,7 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
         payModeSettingFragment = new PayModeSettingFragment();
         braceletFragment = new BraceletFragment();
         backgroundManagerFragment = new BackgroundManagerFragment();
+        printerFragment = new PrinterFragment();
         tv_device = findViewById(R.id.tv_device);
         tv_goods_manage = findViewById(R.id.tv_goods_manage);
         tv_pay_mode = findViewById(R.id.tv_pay_mode);
@@ -156,12 +160,15 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
         fl_2 = findViewById(R.id.fl_2);
         fl_3 = findViewById(R.id.fl_3);
         fl_4 = findViewById(R.id.fl_4);
+        fl_5 = findViewById(R.id.fl_5);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
         addContent(goodsManagerFragment, false);
         checkState(1);
+//        addContent(printerFragment, false);
+//        checkState(4);
     }
 
     private void initAction() {
@@ -170,6 +177,7 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
         fl_2.setOnClickListener(this);
         fl_3.setOnClickListener(this);
         fl_4.setOnClickListener(this);
+        fl_5.setOnClickListener(this);
 //        tv_more.setOnClickListener(this);
     }
 
@@ -206,6 +214,10 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
                 checkState(3);
                 this.replaceContent(braceletFragment, false);
                 break;
+            case R.id.fl_5:
+                checkState(4);
+                this.replaceContent(printerFragment, false);
+                break;
             case R.id.iv_back:
                 setResult(1);
                 finish();
@@ -229,6 +241,7 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
         fl_2.setBackgroundColor(Color.TRANSPARENT);
         fl_3.setBackgroundColor(Color.TRANSPARENT);
         fl_4.setBackgroundColor(Color.TRANSPARENT);
+        fl_5.setBackgroundColor(Color.TRANSPARENT);
         switch (index) {
             case 0:
                 fl_1.setBackgroundColor(Color.parseColor("#44ffffff"));
@@ -241,6 +254,9 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case 3:
                 fl_4.setBackgroundColor(Color.parseColor("#44ffffff"));
+                break;
+            case 4:
+                fl_5.setBackgroundColor(Color.parseColor("#44ffffff"));
                 break;
         }
     }

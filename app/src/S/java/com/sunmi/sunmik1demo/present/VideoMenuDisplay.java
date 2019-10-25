@@ -14,7 +14,12 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -24,6 +29,7 @@ import com.sunmi.sunmik1demo.BasePresentation;
 import com.sunmi.sunmik1demo.R;
 import com.sunmi.sunmik1demo.adapter.MenusAdapter;
 import com.sunmi.sunmik1demo.adapter.PresentMenusAdapter;
+import com.sunmi.sunmik1demo.bean.GoodsCode;
 import com.sunmi.sunmik1demo.bean.MenusBean;
 import com.sunmi.sunmik1demo.player.IMPlayListener;
 import com.sunmi.sunmik1demo.player.IMPlayer;
@@ -33,6 +39,7 @@ import com.sunmi.sunmik1demo.player.MinimalDisplay;
 import com.sunmi.sunmik1demo.ui.MainActivity;
 import com.sunmi.sunmik1demo.utils.ResourcesUtils;
 import com.sunmi.sunmik1demo.utils.ScreenManager;
+import com.sunmi.sunmik1demo.view.CustomCarGoodsCounterView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +49,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by highsixty on 2018/3/7.
@@ -68,6 +77,17 @@ public class VideoMenuDisplay extends BasePresentation {
     private TextView tvMenusLeft2;
     private TextView tvMenusRight2;
 
+    private ImageView ivAddGoods;
+    private LinearLayout llyAddGoods;
+    private EditText etGoodsID;
+    private EditText etGoodsName;
+    private EditText etGoodsPrice;
+    private ImageView ivSubNum;
+    private EditText etGoodsNum;
+    private ImageView ivAddNum;
+    private Button btnAdd;
+    private Button btnCancel;
+
     public VideoMenuDisplay(Context context, Display display, String path) {
         super(context, display);
         this.path = path;
@@ -93,8 +113,6 @@ public class VideoMenuDisplay extends BasePresentation {
         }
         initView();
         initPlayer();
-
-
     }
 
     private void initView() {
@@ -111,6 +129,27 @@ public class VideoMenuDisplay extends BasePresentation {
         tvMenusRight1 = (TextView) findViewById(R.id.tv_menus_right1);
         tvMenusLeft2 = (TextView) findViewById(R.id.tv_menus_left2);
         tvMenusRight2 = (TextView) findViewById(R.id.tv_menus_right2);
+
+        ivAddGoods = (ImageView) findViewById(R.id.iv_add_goods);
+        llyAddGoods = (LinearLayout) findViewById(R.id.ll_add_goods);
+        etGoodsID = (EditText) findViewById(R.id.et_goods_id);
+        etGoodsName = (EditText) findViewById(R.id.et_goods_name);
+        etGoodsPrice = (EditText) findViewById(R.id.et_goods_price);
+        ivSubNum = (ImageView) findViewById(R.id.iv_sub_num);
+        etGoodsNum = (EditText) findViewById(R.id.et_goods_num);
+        ivAddNum = (ImageView) findViewById(R.id.iv_add_num);
+        btnAdd = (Button) findViewById(R.id.btn_add);
+        btnCancel = (Button) findViewById(R.id.btn_cancel);
+
+        ivAddGoods.setOnClickListener(this);
+        ivSubNum.setOnClickListener(this);
+        ivAddNum.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+
+        etGoodsID.setOnClickListener(this);
+        etGoodsName.setOnClickListener(this);   //这仨，可以点一下随机一个值
+        etGoodsPrice.setOnClickListener(this);
 
     }
 
@@ -129,6 +168,81 @@ public class VideoMenuDisplay extends BasePresentation {
         }
     }
 
+    @Override
+    public void onClick(View v){
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.iv_add_goods:
+                if (llyAddGoods.getVisibility() == View.GONE) {
+                    etGoodsID.setText(randomID());
+                    etGoodsName.setText(randomName());
+                    etGoodsPrice.setText(randomPrice());
+                    etGoodsNum.setText("1");
+
+                    llyAddGoods.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.iv_sub_num:
+                int i = Integer.parseInt(etGoodsNum.getText().toString());
+                if (i>1)
+                    i--;
+                etGoodsNum.setText(i+"");
+                break;
+            case R.id.iv_add_num:
+                int j = Integer.parseInt(etGoodsNum.getText().toString());
+                if (j<10000)
+                    j++;
+                etGoodsNum.setText(j+"");
+                break;
+            case R.id.btn_add:
+                String strGoodsID = etGoodsID.getText().toString();
+                String strGoodsName = etGoodsName.getText().toString();
+                float fGoodsPrice = Float.parseFloat(etGoodsPrice.getText().toString());
+                int iGoodsNum  = Integer.parseInt(etGoodsNum.getText().toString());
+
+                //加入到库存，后面的打印会调库存参数
+                if (!GoodsCode.getInstance().getGood().containsKey(strGoodsID))
+                    GoodsCode.getInstance().add(strGoodsID, R.drawable.ic_launcher,
+                            strGoodsName, fGoodsPrice, iGoodsNum, getResources().getString(R.string.units_each), GoodsCode.MODE_5);
+
+                //加到购物车
+                MenusBean bean = new MenusBean();
+                bean.setId("" + (menus.size() + 1));
+                bean.setMoney(ResourcesUtils.getString(R.string.units_money_units) + String.valueOf(fGoodsPrice * iGoodsNum));
+                bean.setName(strGoodsName);
+                bean.setType(0);
+                bean.setCode(strGoodsID);
+
+                onUpdateMenus.onMenusAdd(bean);
+                llyAddGoods.setVisibility(View.GONE);
+                break;
+            case R.id.btn_cancel:
+                if (llyAddGoods.getVisibility() == View.VISIBLE) {
+                    llyAddGoods.setVisibility(View.GONE);
+                }
+                break;
+
+            case R.id.et_goods_id:
+                etGoodsID.setText(randomID());
+                break;
+            case R.id.et_goods_name:
+                etGoodsName.setText(randomName());
+                break;
+            case R.id.et_goods_price:
+                etGoodsPrice.setText(randomPrice());
+                break;
+        }
+    }
+
+    private OnUpdateMenus onUpdateMenus = null;
+
+    public static interface OnUpdateMenus{
+        public void onMenusAdd(MenusBean bean);
+    }
+
+    public void setOnUpdateMenusListener(OnUpdateMenus updateMenus){
+        onUpdateMenus = updateMenus;
+    }
 
     private void initPlayer() {
         player = new MPlayer();
@@ -253,6 +367,34 @@ public class VideoMenuDisplay extends BasePresentation {
     public void onDisplayRemoved() {
         super.onDisplayRemoved();
 //        player.onDestroy();
+    }
+
+    private int randomImageID(){
+        int[] images = {R.drawable.frame001,2};
+        int img = images[(int)(0 + Math.random()*(10-1+1))];
+        Log.d(TAG,"test1024:-1-1:" + img);
+        return img;
+    }
+
+    private String randomID(){
+        String[] strs = {"00000000", "11111111", "22222222", "33333333", "44444444",
+                "55555555", "66666666", "77777777", "88888888", "99999999", };
+        String str = strs[(int)(0 + Math.random()*(10-1+1))];
+        Log.d(TAG,"test1024:00:" + str);
+        return str;
+    }
+    private String randomName(){
+        String[] strs = {"老兽的温泉", "不屈的花园", "娜娜奇的秘密基地", "巨人之杯", "诱惑的森林",
+                "树公寓的化石群", "尽头的漩涡", "黎明的箱庭", "绝界的祭坛", "奈落之底"};
+        String str = strs[(int)(0 + Math.random()*(10-1+1))];
+        Log.d(TAG,"test1024:11:" + str);
+        return str;
+    }
+    private String randomPrice(){
+        String[] strs = {"8.00", "18.00", "28.00", "38.00", "48.00", "58.00", "68.00", "78.00", "88.00", "98.00"};
+        String str = strs[(int)(0 + Math.random()*(10-1+1))];
+        Log.d(TAG,"test1024:22:" + str);
+        return str;
     }
 }
 

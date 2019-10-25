@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="93.32999dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="26.659973dip"
+                        android:gravity="center"
+                        android:text="@string/more_title_6"
+                        android:textColor="#ff000000"
+                        android:textSize="18.669983sp" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="21.329987dip"
+                    android:layout_marginEnd="53.329987dip"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_printer_text"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="53.329987dip"
+                        android:background="@drawable/more_btn_bg"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16.0dip"
+                        android:paddingStart="16.0dip"
+                        android:text="@string/more_printer_text"
+                        android:textColor="#ff000000"
+                        android:textSize="16.0sp" />
+
+                    <Button
+                        android:id="@+id/btn_printer_image"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="53.329987dip"
+                        android:background="@drawable/more_btn_bg"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16.0dip"
+                        android:paddingStart="16.0dip"
+                        android:text="@string/more_printer_image"
+                        android:textColor="#ff000000"
+                        android:textSize="16.0sp" />
+
+                    <Button
+                        android:id="@+id/btn_printer_circulate"
+                        style="?android:borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="53.329987dip"
+                        android:background="@drawable/more_btn_bg"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16.0dip"
+                        android:paddingStart="16.0dip"
+                        android:text="@string/more_printer_circulate"
+                        android:textColor="#ff000000"
+                        android:textSize="16.0sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_printer_cut_paper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_printer_cut_paper" />
+
+                    <CheckBox
+                        android:id="@+id/cb_printer_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_printer_text"
+                        android:checked="true"/>
+
+                    <CheckBox
+                        android:id="@+id/cb_printer_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_printer_image" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_printer_times" />
+
+                    <EditText
+                        android:id="@+id/et_printer_times"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ems="6"
+                        android:maxLength="6"
+                        android:inputType="number"
+                        android:text="5"   />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_printer_interval" />
+
+                    <EditText
+                        android:id="@+id/et_printer_interval"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ems="6"
+                        android:maxLength="6"
+                        android:inputType="number"
+                        android:text="3000" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <View
+            android:layout_width="0.6600001dip"
+            android:layout_height="match_parent"
+            android:background="#ffe9ebec" />
+
+        <LinearLayout
+            android:layout_width="0.0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="#fff1f6f8"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0.0dp"
+                android:layout_weight="2"
+                android:layout_marginStart="21.329987dip"
+                android:layout_marginEnd="21.329987dip"
+                android:layout_marginTop="21.329987dip"
+                android:scrollbars="none">
+
+                <EditText
+                    android:id="@+id/et_text_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_code"
+                    android:textSize="16.0sp"
+                    android:text="@string/more_printer_receipt"/>
+            </ScrollView>
+
+            <ImageView
+                android:id="@+id/iv_image_area"
+                android:layout_width="match_parent"
+                android:layout_height="0.0dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/bg_code"
+                android:layout_marginStart="21.329987dip"
+                android:layout_marginEnd="21.329987dip"
+                android:layout_marginTop="21.329987dip"
+                android:scaleType="centerInside"
+                android:src="@drawable/print_logo"/>
+
+            <ScrollView
+                android:id="@+id/sv_note_area"
+                android:layout_width="match_parent"
+                android:layout_height="0.0dp"
+                android:layout_weight="3"
+                android:layout_marginStart="21.329987dip"
+                android:layout_marginEnd="21.329987dip"
+                android:layout_marginTop="21.329987dip"
+                android:layout_marginBottom="21.329987dip"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/tv_note_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_code"
+                    android:textColor="#ff999999"
+                    android:textSize="16.0sp" />
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
