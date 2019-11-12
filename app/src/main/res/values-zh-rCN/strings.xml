@@ -37,6 +37,10 @@
     <string name="goods_fruit">水果</string>
     <string name="goods_snacks">零食</string>
     <string name="goods_vegetables">蔬菜</string>
+    <string name="goods_non_standar">非标商品</string>
+
+    <string name="random_non_standar_goods">点击生成随机商品</string>
+    <string name="add_more_non_standar">添加其他非标商品</string>
 
     <string name="goods_apple">苹果</string>
     <string name="goods_pear">梨子</string>
@@ -65,6 +69,22 @@
     <string name="goods_6">百草味话梅瓜子</string>
     <string name="goods_7">五谷味梳打饼干</string>
     <string name="goods_8">海苔味梳打饼干</string>
+
+    <string name="sec_goods_1">七个胖烧麦</string>
+    <string name="sec_goods_2">日长睡起无情思</string>
+    <string name="sec_goods_3">六个溜溜球</string>
+    <string name="sec_goods_4">巴女骑牛唱竹枝</string>
+
+    <string name="sec_goods_5">星攒蜩翼冰绡薄</string>
+    <string name="sec_goods_6">西门填鸭</string>
+    <string name="sec_goods_7">东坡烤鱼</string>
+    <string name="sec_goods_8">海燕双栖玳瑁梁</string>
+
+    <string name="sec_goods_9">小黑丫头</string>
+    <string name="sec_goods_10">爱吃蛋挞</string>
+    <string name="sec_goods_11">无声飞碎雪</string>
+    <string name="sec_goods_12">甜砌蔗糖霜</string>
+
 
 
     <!--提示用语-->
@@ -129,6 +149,7 @@
     <string name="menus_title1">商米收银演示demo</string>
     <string name="menus_title2">商米收银</string>
     <string name="menus_title3">SUNMI 欢迎你</string>
+    <string name="menus_title4">副屏演示demo</string>
     <string name="menus_number">编号</string>
     <string name="menus_unit_price">单价</string>
     <string name="menus_unit_num">数/重量</string>

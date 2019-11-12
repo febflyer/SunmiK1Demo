@@ -125,6 +125,7 @@ public class TextDisplay extends BasePresentation {
         }
         llPresentPayFail.setVisibility(View.GONE);
         presentProgress.setVisibility(View.GONE);
+
         switch (state) {
             case 0:
                 llPresentInfo.setVisibility(View.VISIBLE);
@@ -219,7 +220,7 @@ public class TextDisplay extends BasePresentation {
     @Override
     public void show() {
         super.show();
-        int payMode = (int) SharePreferenceUtil.getParam(getContext(), PayDialog.PAY_MODE_KEY, 7);
+        int payMode = (int) SharePreferenceUtil.getParam(getContext(), PayDialog.PAY_MODE_KEY, 6);
         switch (payMode) {
             case PayDialog.PAY_FACE:
                 paymodeOne.setVisibility(View.GONE);

@@ -58,6 +58,9 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHold> {
             case 3:
                 hold.tvUnit.setText("/" + ResourcesUtils.getString(R.string.units_bag));
                 break;
+            case 4:
+                hold.tvUnit.setText("/" + ResourcesUtils.getString(R.string.units_each));
+                break;
             default:
                 hold.tvUnit.setText("/" + list.get(position).getUnit());
                 break;

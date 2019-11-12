@@ -727,6 +727,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
             if (completeListener != null) {
                 completeListener.onSuccess(payMode);
                 updatePresentationByPay(payMode);
+                isPayComplete = false;
                 btnComplete.setText(ResourcesUtils.getString(R.string.tips_confirm) + "(" + payCompleteTime + ")");
                 paySuccessToAutoComplete();
             }
@@ -775,13 +776,14 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
             sayBye();
         } else {
             updateTextDisplay(ResourcesUtils.getString(R.string.pay_confirm_true) + mMoney, 1);
-            myHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    sayBye();
-
-                }
-            }, 2000);
+            //注释掉by mayflower on 191028,这东西跟主界面的确认按钮会存在时间差,在这个显示之前点确认,会导致这界面一直存在
+//            myHandler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    sayBye();
+//
+//                }
+//            }, 2000);
         }
     }
 
@@ -792,7 +794,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
 
 
     private void updateTextDisplay(String context, int state) {
-        updateTextDisplay(0, context, state);
+        updateTextDisplay(1, context, state);
     }
 
     private void updateTextDisplay(int selet, String context, int state) {

@@ -26,7 +26,8 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
     private Button btnPrinterText;
     private Button btnPrinterImage;
     private Button btnPrinterCirculate;
-    private CheckBox cbPrinterCutPaper;
+    private CheckBox cbPrinterCutText;
+    private CheckBox cbPrinterCutImage;
     private CheckBox cbPrinterText;
     private CheckBox cbPrinterImage;
     private EditText etPrinterTimes;
@@ -51,7 +52,8 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
         btnPrinterText = (Button) view.findViewById(R.id.btn_printer_text);
         btnPrinterImage = (Button) view.findViewById(R.id.btn_printer_image);
         btnPrinterCirculate = (Button) view.findViewById(R.id.btn_printer_circulate);
-        cbPrinterCutPaper = (CheckBox) view.findViewById(R.id.cb_printer_cut_paper);
+        cbPrinterCutText = (CheckBox) view.findViewById(R.id.cb_printer_cut_text);
+        cbPrinterCutImage = (CheckBox) view.findViewById(R.id.cb_printer_cut_image);
         cbPrinterText = (CheckBox) view.findViewById(R.id.cb_printer_text);
         cbPrinterImage = (CheckBox) view.findViewById(R.id.cb_printer_image);
         etPrinterTimes = (EditText)view.findViewById(R.id.et_printer_times);
@@ -83,13 +85,13 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
             case R.id.btn_printer_text:
                 if (MainActivity.kPrinterPresenter!=null) {
                     append(strDate + ":" + btnPrinterText.getText().toString() + "x" + ++totalTextTimes + "\r\n");
-                    MainActivity.kPrinterPresenter.printText(etTextArea.getText().toString(),cbPrinterCutPaper.isChecked());
+                    MainActivity.kPrinterPresenter.printText(etTextArea.getText().toString(),cbPrinterCutText.isChecked());
                 }
                 break;
             case R.id.btn_printer_image:
                 if (MainActivity.kPrinterPresenter!=null) {
                     append(strDate + ":" + btnPrinterImage.getText().toString() + "x" + ++totalImageTimes + "\r\n");
-                    MainActivity.kPrinterPresenter.printImage(((BitmapDrawable)ivImageArea.getDrawable()).getBitmap(), cbPrinterCutPaper.isChecked());
+                    MainActivity.kPrinterPresenter.printImage(((BitmapDrawable)ivImageArea.getDrawable()).getBitmap(), cbPrinterCutImage.isChecked());
                 }
                 break;
             case R.id.btn_printer_circulate:
@@ -105,7 +107,8 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
                 final int interval = Integer.valueOf(etPrinterInterval.getText().toString());
                 String text = etTextArea.getText().toString();
                 Bitmap image = ((BitmapDrawable)ivImageArea.getDrawable()).getBitmap();
-                boolean bCut = cbPrinterCutPaper.isChecked();
+                boolean bCutText = cbPrinterCutText.isChecked();
+                boolean bCutImage = cbPrinterCutImage.isChecked();
                 boolean bText = cbPrinterText.isChecked();
                 boolean bImage = cbPrinterImage.isChecked();
 
@@ -115,9 +118,9 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
                         try {
                             for (int i=0; i<times;i++){
                                 if (bText)
-                                    MainActivity.kPrinterPresenter.printText(text,bCut);
+                                    MainActivity.kPrinterPresenter.printText(text,bCutText);
                                 if (bImage)
-                                    MainActivity.kPrinterPresenter.printImage(image,bCut);
+                                    MainActivity.kPrinterPresenter.printImage(image,bCutImage);
                                 Thread.sleep(interval);
                             }
                         } catch (InterruptedException e) {

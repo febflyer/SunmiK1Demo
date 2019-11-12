@@ -37,6 +37,11 @@
     <string name="goods_fruit">Fruit</string>
     <string name="goods_snacks">Snacks</string>
     <string name="goods_vegetables">Vegetables</string>
+    <string name="goods_non_standar"> NonStandar</string>
+
+    <string name="random_non_standar_goods">RandomNonStandarGoods</string>
+    <string name="add_more_non_standar">AddMoreNonStandar</string>
+
     <string name="goods_apple">Apple</string>
     <string name="goods_pear">Pear</string>
     <string name="goods_banana">Banana</string>
@@ -63,6 +68,21 @@
     <string name="goods_6">Melon seeds</string>
     <string name="goods_7">Biscuits</string>
     <string name="goods_8">Sea sedge biscuits</string>
+
+    <string name="sec_goods_1">Sec Goods1</string>
+    <string name="sec_goods_2">Sec Goods2</string>
+    <string name="sec_goods_3">Sec Goods3</string>
+    <string name="sec_goods_4">Sec Goods4</string>
+
+    <string name="sec_goods_5">Sec Goods5</string>
+    <string name="sec_goods_6">Sec Goods6</string>
+    <string name="sec_goods_7">Sec Goods7</string>
+    <string name="sec_goods_8">Sec Goods8</string>
+
+    <string name="sec_goods_9">Sec Goods9</string>
+    <string name="sec_goods_10">Sec Goods10</string>
+    <string name="sec_goods_11">Sec Goods11</string>
+    <string name="sec_goods_12">Sec Goods12</string>
 
 
     <!--提示用语-->
@@ -126,6 +146,7 @@
     <string name="menus_title1">Sunmi cashier Demo</string>
     <string name="menus_title2">Cashier of Sunmi</string>
     <string name="menus_title3">Welcome to Sunmi</string>
+    <string name="menus_title4">Second screen Demo</string>
     <string name="menus_number">SN</string>
     <string name="menus_unit_price">Price</string>
     <string name="menus_unit_num">number/weight</string>

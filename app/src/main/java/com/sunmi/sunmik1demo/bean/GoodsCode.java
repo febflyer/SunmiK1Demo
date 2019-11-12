@@ -38,7 +38,11 @@ public class GoodsCode {
 
             "9", "10", "11", "12",//vegetables
 
-            "6928804011142", "6902827110013", "6920202888883"//others
+            "6928804011142", "6902827110013", "6920202888883",//others
+
+            "1001", "1002", "1003", "1004",//non_standar
+            "1005", "1006", "1007", "1008",
+            "1009", "1010", "1011", "1012",
     };
 
     int[] icon = {
@@ -52,8 +56,12 @@ public class GoodsCode {
 
             R.drawable.goods_scs_1, R.drawable.goods_scs_2, R.drawable.goods_scs_3, R.drawable.goods_scs_4,//vegetables
 
-            0, 0, 0
-//            R.drawable.coco, R.drawable.sprit, R.drawable.redbull,
+//            0, 0, 0,
+            R.drawable.coco, R.drawable.sprit, R.drawable.redbull,
+
+            R.drawable.sec_goods_1, R.drawable.sec_goods_2, R.drawable.sec_goods_3, R.drawable.sec_goods_4,
+            R.drawable.sec_goods_5, R.drawable.sec_goods_6, R.drawable.sec_goods_7, R.drawable.sec_goods_8,
+            R.drawable.sec_goods_9, R.drawable.sec_goods_10, R.drawable.sec_goods_11, R.drawable.sec_goods_12,
     };
 
     Object[] string = {
@@ -69,7 +77,9 @@ public class GoodsCode {
 
             R.string.goods_coke, R.string.goods_sprite, R.string.goods_red_bull,//others
 
-
+            R.string.sec_goods_1, R.string.sec_goods_2, R.string.sec_goods_3, R.string.sec_goods_4,//non_standar
+            R.string.sec_goods_5, R.string.sec_goods_6, R.string.sec_goods_7, R.string.sec_goods_8,
+            R.string.sec_goods_9, R.string.sec_goods_10, R.string.sec_goods_11, R.string.sec_goods_12,
     };
 
 
@@ -86,6 +96,9 @@ public class GoodsCode {
 
             5.00f, 4.00f, 6.00f,//others
 
+            6.80f, 7.80f, 8.80f, 9.80f,//non_standar
+            68.80f, 78.80f, 88.80f, 98.80f,
+            16.80f, 17.80f, 18.80f, 19.80f,
     };
 
     int[] species = {
@@ -94,6 +107,7 @@ public class GoodsCode {
             8,//mode = 2
             4,// mode = 3
             3,//other mode = 4
+            12,//non_standar
     };
 
     int[] dialog_logo = {
@@ -111,6 +125,7 @@ public class GoodsCode {
     List<GvBeans> vegetables = new ArrayList<>();
     List<GvBeans> fruits = new ArrayList<>();
     List<GvBeans> others = new ArrayList<>();
+    List<GvBeans> nonStandar = new ArrayList<>();
 
     private static GoodsCode instance = null;
 
@@ -192,6 +207,10 @@ public class GoodsCode {
         return others;
     }
 
+    public List<GvBeans> getNonStandar(){
+        return nonStandar;
+    }
+
     public void add(String code, int imageId, String resString, float price, int mode) {
         add(code, imageId, resString, price, 100, "", mode);
     }
@@ -238,9 +257,10 @@ public class GoodsCode {
                 vegetables.remove(gvBeans);
                 break;
             case MODE_4:
+                others.remove(gvBeans);
                 break;
             case MODE_5:
-                others.remove(gvBeans);
+                nonStandar.remove(gvBeans);
                 break;
         }
     }
@@ -260,9 +280,10 @@ public class GoodsCode {
                 vegetables.add(gvBeans);
                 break;
             case MODE_4:
+                others.add(gvBeans);
                 break;
             case MODE_5:
-                others.add(gvBeans);
+                nonStandar.add(gvBeans);
                 break;
 
         }

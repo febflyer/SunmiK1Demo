@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -55,6 +56,13 @@ public class VideoDisplay extends BasePresentation {
         initPlayer();
         Log.d(TAG, "onCreate: ------------>" + (player == null));
 
+        mPlayerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                clickLinster.onClick();
+                return false;
+            }
+        });
     }
 
     private void initPlayer() {
@@ -84,6 +92,7 @@ public class VideoDisplay extends BasePresentation {
                     e.printStackTrace();
                 }
             }
+
         });
     }
 
@@ -122,6 +131,16 @@ public class VideoDisplay extends BasePresentation {
     public void onDisplayRemoved() {
         super.onDisplayRemoved();
 //        player.onDestroy();
+    }
+
+    //触摸事件,可以用做触摸时跳转
+    private OnMyClickLinster clickLinster;
+
+    public void setClickLinster(OnMyClickLinster clickLinster) {
+        this.clickLinster = clickLinster;
+    }
+    public interface OnMyClickLinster{
+        public void onClick();
     }
 }
 

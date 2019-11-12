@@ -3,7 +3,6 @@ package com.sunmi.sunmik1demo.ui;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Dialog;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -14,13 +13,11 @@ import android.graphics.Color;
 import android.graphics.Outline;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -29,16 +26,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,7 +40,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
-import com.sunmi.electronicscaleservice.ScaleCallback;
 import com.sunmi.extprinterservice.ExtPrinterService;
 import com.sunmi.idcardservice.IDCardServiceAidl;
 import com.sunmi.idcardservice.MiFareCardAidl;
@@ -57,35 +48,25 @@ import com.sunmi.peripheral.printer.InnerPrinterCallback;
 import com.sunmi.peripheral.printer.InnerPrinterException;
 import com.sunmi.peripheral.printer.InnerPrinterManager;
 import com.sunmi.peripheral.printer.SunmiPrinterService;
-import com.sunmi.scalelibrary.ScaleManager;
 import com.sunmi.sunmik1demo.BaseActivity;
 import com.sunmi.sunmik1demo.BasePresentationHelper;
-import com.sunmi.sunmik1demo.MyApplication;
 import com.sunmi.sunmik1demo.R;
 import com.sunmi.sunmik1demo.adapter.GoodsAdapter;
-import com.sunmi.sunmik1demo.adapter.GvAdapter;
 import com.sunmi.sunmik1demo.adapter.MenusAdapter;
 import com.sunmi.sunmik1demo.bean.GoodsCode;
 import com.sunmi.sunmik1demo.bean.GvBeans;
 import com.sunmi.sunmik1demo.bean.MenusBean;
-import com.sunmi.sunmik1demo.dialog.AddFruitDialogFragment;
 import com.sunmi.sunmik1demo.dialog.PayDialog;
-import com.sunmi.sunmik1demo.eventbus.InstallSmileEvent;
 import com.sunmi.sunmik1demo.eventbus.UpdateUnLockUserEvent;
-import com.sunmi.sunmik1demo.fragment.BackgroundManagerFragment;
 import com.sunmi.sunmik1demo.fragment.GoodsManagerFragment;
 import com.sunmi.sunmik1demo.fragment.PayModeSettingFragment;
-import com.sunmi.sunmik1demo.fragment.PrinterFragment;
 import com.sunmi.sunmik1demo.model.AlipaySmileModel;
-import com.sunmi.sunmik1demo.present.GoodsManagerPresentation;
 import com.sunmi.sunmik1demo.present.TextDisplay;
 import com.sunmi.sunmik1demo.present.VideoDisplay;
 import com.sunmi.sunmik1demo.present.VideoMenuDisplay;
 import com.sunmi.sunmik1demo.presenter.AlipaySmilePresenter;
-import com.sunmi.sunmik1demo.presenter.CardReaderPresenter;
 import com.sunmi.sunmik1demo.presenter.HCardSenderPresenter;
 import com.sunmi.sunmik1demo.presenter.KCardReaderPresenter;
-import com.sunmi.sunmik1demo.presenter.KCodeScannerPresenter;
 import com.sunmi.sunmik1demo.presenter.KCodeScannerPresenter2;
 import com.sunmi.sunmik1demo.presenter.KPrinterPresenter;
 import com.sunmi.sunmik1demo.presenter.PayMentPayPresenter;
@@ -95,7 +76,6 @@ import com.sunmi.sunmik1demo.presenter.UnionPayPreseter;
 import com.sunmi.sunmik1demo.presenter.CodeScannerPresenter;
 import com.sunmi.sunmik1demo.unlock.UnlockServer;
 import com.sunmi.sunmik1demo.utils.ByteUtils;
-import com.sunmi.sunmik1demo.utils.InstallApkUtils;
 import com.sunmi.sunmik1demo.utils.ResourcesUtils;
 import com.sunmi.sunmik1demo.utils.ScreenManager;
 import com.sunmi.sunmik1demo.utils.SharePreferenceUtil;
@@ -113,10 +93,8 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -190,7 +168,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ScreenManager screenManager = ScreenManager.getInstance();
     private VideoMenuDisplay videoMenuDisplay = null;
     public TextDisplay textDisplay = null;
-    private GoodsManagerPresentation goodsManagerPresentation = null;
     private PayDialog payDialog;
     private SunmiPrinterService woyouService = null;//商米标准打印 打印服务
     private ExtPrinterService extPrinterService = null;//k1 打印服务
@@ -758,12 +735,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 //        if (display != null && isVertical) {
         if (isSecondIxist && !isSecondVertical) {
-            videoDisplay = new VideoDisplay(this, display, Environment.getExternalStorageDirectory().getPath() + "/video_02.mp4");
+            videoDisplay = new VideoDisplay(this, display, Environment.getExternalStorageDirectory().getPath() + "/video_03.mp4");
             videoMenuDisplay = new VideoMenuDisplay(this, display, Environment.getExternalStorageDirectory().getPath() + "/video_02.mp4");
             textDisplay = new TextDisplay(this, display);
 
-//        goodsManagerPresentation = new GoodsManagerPresentation(this,display);
-//        goodsManagerPresentation.show();
+            videoDisplay.setClickLinster(new VideoDisplay.OnMyClickLinster() {
+                @Override
+                public void onClick() {
+                    if (videoMenuDisplay != null && !videoMenuDisplay.isShow)
+                        videoMenuDisplay.show();
+                }
+            });
             videoMenuDisplay.setOnUpdateMenusListener(new VideoMenuDisplay.OnUpdateMenus() {
                 @Override
                 public void onMenusAdd(MenusBean bean) {
@@ -775,6 +757,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     tvPrice.setText(ResourcesUtils.getString(MainActivity.this, R.string.units_money_units) + decimalFormat.format(price));
                     menusAdapter.update(menus);
                     buildMenuJson(menus, decimalFormat.format(price));
+                }
+                @Override
+                public void onMenusClear(){
+                    payCompleteToReMenu();
                 }
             });
         }
@@ -867,8 +853,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             tvPrice.setText(ResourcesUtils.getString(MainActivity.this, R.string.units_money_units) + "0.00");
             menus.clear();
             menusAdapter.update(menus);
+            buildMenuJson(menus, "0.00");
 
-            standByTime();
+            myHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    standByTime();
+
+                }
+            }, 1000);
+//            standByTime();
 
         }
 //        else {
@@ -921,8 +915,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     rtlEmptyShopcar.setVisibility(View.VISIBLE);
                     menus.clear();
                     tvPrice.setText(ResourcesUtils.getString(this, R.string.units_money_units) + "0.00");
-                    menusAdapter.update(menus);
+                    menusAdapter.update(menus);           //主屏购物车清空
+                    buildMenuJson(menus, "0.00");   //副屏购物车清空
+
                     if (videoDisplay != null) {
+
                         videoDisplay.show();
                     }
                 }
@@ -944,7 +941,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 bundle.putString("MONEY", tvPrice.getText().toString());
                 bundle.putString("GOODS", goods_data);
 
-                int payMode = (int) SharePreferenceUtil.getParam(this, PayDialog.PAY_MODE_KEY, 7);
+                int payMode = (int) SharePreferenceUtil.getParam(this, PayDialog.PAY_MODE_KEY, 6);
 
                 bundle.putInt("PAYMODE", payMode);
                 payDialog.setArguments(bundle);
@@ -974,7 +971,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     if (bottomSheetLayout.isSheetShowing()) {
                         bottomSheetLayout.dismissSheet();
                     }
-                    int payModes = (int) SharePreferenceUtil.getParam(this, PayDialog.PAY_MODE_KEY, 7);
+                    int payModes = (int) SharePreferenceUtil.getParam(this, PayDialog.PAY_MODE_KEY, 6);
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("MONEY", tvCarMoeny.getText().toString());
                     bundle1.putString("GOODS", goods_data);
@@ -1080,7 +1077,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Log.d("HHHH", "onClick: ---------->" + data.toString());
             goods_data = data.toString();
             Log.d(TAG, "buildMenuJson: ------->" + (videoMenuDisplay != null));
-            if (payDialog.isVisible()) {
+//            if (payDialog.isVisible()) {
+            if (payDialog.isVisible() && menus.size()>0) {  //结账完成时.副屏要清空购物车,此时menus.size()=0
                 return;
             }
             if (videoMenuDisplay != null && !videoMenuDisplay.isShow) {

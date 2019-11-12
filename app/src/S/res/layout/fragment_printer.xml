@@ -56,6 +56,12 @@
                         android:textColor="#ff000000"
                         android:textSize="16.0sp" />
 
+                    <CheckBox
+                        android:id="@+id/cb_printer_cut_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_printer_cut_paper" />
+
                     <Button
                         android:id="@+id/btn_printer_image"
                         style="?android:borderlessButtonStyle"
@@ -68,6 +74,13 @@
                         android:text="@string/more_printer_image"
                         android:textColor="#ff000000"
                         android:textSize="16.0sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_printer_cut_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_printer_cut_paper"
+                        android:checked="true"/>
 
                     <Button
                         android:id="@+id/btn_printer_circulate"
@@ -83,12 +96,6 @@
                         android:textSize="16.0sp" />
 
                     <CheckBox
-                        android:id="@+id/cb_printer_cut_paper"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/more_printer_cut_paper" />
-
-                    <CheckBox
                         android:id="@+id/cb_printer_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -99,7 +106,8 @@
                         android:id="@+id/cb_printer_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/more_printer_image" />
+                        android:text="@string/more_printer_image"
+                        android:checked="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"

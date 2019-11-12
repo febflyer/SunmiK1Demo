@@ -4,6 +4,8 @@ import android.app.Presentation;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -27,9 +29,11 @@ import android.widget.TextView;
 
 import com.sunmi.sunmik1demo.BasePresentation;
 import com.sunmi.sunmik1demo.R;
+import com.sunmi.sunmik1demo.adapter.GoodsAdapter;
 import com.sunmi.sunmik1demo.adapter.MenusAdapter;
 import com.sunmi.sunmik1demo.adapter.PresentMenusAdapter;
 import com.sunmi.sunmik1demo.bean.GoodsCode;
+import com.sunmi.sunmik1demo.bean.GvBeans;
 import com.sunmi.sunmik1demo.bean.MenusBean;
 import com.sunmi.sunmik1demo.player.IMPlayListener;
 import com.sunmi.sunmik1demo.player.IMPlayer;
@@ -79,6 +83,8 @@ public class VideoMenuDisplay extends BasePresentation {
 
     private ImageView ivAddGoods;
     private LinearLayout llyAddGoods;
+    private ImageView ivGoodsIcon;
+    private int resIconID;
     private EditText etGoodsID;
     private EditText etGoodsName;
     private EditText etGoodsPrice;
@@ -87,6 +93,15 @@ public class VideoMenuDisplay extends BasePresentation {
     private ImageView ivAddNum;
     private Button btnAdd;
     private Button btnCancel;
+    private TextView tvSecClear;
+
+    //新需求，给副屏显示非标商品，功能同主屏
+    private LinearLayout ll_non_standar;
+    private RecyclerView re_non_standar;
+
+    List<GvBeans> mNonStandarBean;
+    GoodsAdapter nonStandarAdapter;
+
 
     public VideoMenuDisplay(Context context, Display display, String path) {
         super(context, display);
@@ -132,6 +147,7 @@ public class VideoMenuDisplay extends BasePresentation {
 
         ivAddGoods = (ImageView) findViewById(R.id.iv_add_goods);
         llyAddGoods = (LinearLayout) findViewById(R.id.ll_add_goods);
+        ivGoodsIcon = (ImageView) findViewById(R.id.iv_icon);
         etGoodsID = (EditText) findViewById(R.id.et_goods_id);
         etGoodsName = (EditText) findViewById(R.id.et_goods_name);
         etGoodsPrice = (EditText) findViewById(R.id.et_goods_price);
@@ -140,17 +156,45 @@ public class VideoMenuDisplay extends BasePresentation {
         ivAddNum = (ImageView) findViewById(R.id.iv_add_num);
         btnAdd = (Button) findViewById(R.id.btn_add);
         btnCancel = (Button) findViewById(R.id.btn_cancel);
+        tvSecClear = findViewById(R.id.tv_sec_clear);
+
+        ll_non_standar = findViewById(R.id.ll_non_standar);
+        re_non_standar = findViewById(R.id.gv_non_standar);
 
         ivAddGoods.setOnClickListener(this);
         ivSubNum.setOnClickListener(this);
         ivAddNum.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        tvSecClear.setOnClickListener(this);
 
+        ivGoodsIcon.setOnClickListener(this);
         etGoodsID.setOnClickListener(this);
-        etGoodsName.setOnClickListener(this);   //这仨，可以点一下随机一个值
+        etGoodsName.setOnClickListener(this);   //这几位，可以点一下随机一个值
         etGoodsPrice.setOnClickListener(this);
 
+        mNonStandarBean = GoodsCode.getInstance().getNonStandar();
+        nonStandarAdapter = new GoodsAdapter(mNonStandarBean,4);    //4的单位是"份"
+        re_non_standar.setLayoutManager(new GridLayoutManager(getContext(),4));     //每行显示4个
+        re_non_standar.setAdapter(nonStandarAdapter);
+
+        nonStandarAdapter.notifyDataSetChanged();   //mNonStandarBean有变化则自动更新
+        nonStandarAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view, int position) {
+                MenusBean bean = new MenusBean();
+                bean.setId("" + (menus.size() + 1));
+                bean.setMoney(mNonStandarBean.get(position).getPrice());
+                bean.setName(mNonStandarBean.get(position).getName());
+                bean.setType(0);
+                bean.setCode(mNonStandarBean.get(position).getCode());
+                menus.add(bean);
+
+                onUpdateMenus.onMenusAdd(bean);
+            }
+        });
+
+        ivGoodsIcon.setImageResource(randIcon());
     }
 
     private void initData(String jsonStr) {
@@ -174,11 +218,11 @@ public class VideoMenuDisplay extends BasePresentation {
         switch (v.getId()) {
             case R.id.iv_add_goods:
                 if (llyAddGoods.getVisibility() == View.GONE) {
+                    ivGoodsIcon.setImageResource(randIcon());
                     etGoodsID.setText(randomID());
                     etGoodsName.setText(randomName());
                     etGoodsPrice.setText(randomPrice());
                     etGoodsNum.setText("1");
-
                     llyAddGoods.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -199,10 +243,11 @@ public class VideoMenuDisplay extends BasePresentation {
                 String strGoodsName = etGoodsName.getText().toString();
                 float fGoodsPrice = Float.parseFloat(etGoodsPrice.getText().toString());
                 int iGoodsNum  = Integer.parseInt(etGoodsNum.getText().toString());
+                int iIcon = resIconID;
 
                 //加入到库存，后面的打印会调库存参数
                 if (!GoodsCode.getInstance().getGood().containsKey(strGoodsID))
-                    GoodsCode.getInstance().add(strGoodsID, R.drawable.ic_launcher,
+                    GoodsCode.getInstance().add(strGoodsID, iIcon,
                             strGoodsName, fGoodsPrice, iGoodsNum, getResources().getString(R.string.units_each), GoodsCode.MODE_5);
 
                 //加到购物车
@@ -210,11 +255,12 @@ public class VideoMenuDisplay extends BasePresentation {
                 bean.setId("" + (menus.size() + 1));
                 bean.setMoney(ResourcesUtils.getString(R.string.units_money_units) + String.valueOf(fGoodsPrice * iGoodsNum));
                 bean.setName(strGoodsName);
-                bean.setType(0);
+                bean.setType(0);        //库存
                 bean.setCode(strGoodsID);
 
                 onUpdateMenus.onMenusAdd(bean);
                 llyAddGoods.setVisibility(View.GONE);
+                nonStandarAdapter.notifyDataSetChanged();
                 break;
             case R.id.btn_cancel:
                 if (llyAddGoods.getVisibility() == View.VISIBLE) {
@@ -222,6 +268,14 @@ public class VideoMenuDisplay extends BasePresentation {
                 }
                 break;
 
+            case R.id.tv_sec_clear:
+                onUpdateMenus.onMenusClear();
+                break;
+
+            case R.id.iv_icon:
+                //这里用setBackgroundResource的话,就可以通过反射获取图片id了
+                ivGoodsIcon.setImageResource(randIcon());
+                break;
             case R.id.et_goods_id:
                 etGoodsID.setText(randomID());
                 break;
@@ -238,6 +292,7 @@ public class VideoMenuDisplay extends BasePresentation {
 
     public static interface OnUpdateMenus{
         public void onMenusAdd(MenusBean bean);
+        public void onMenusClear();
     }
 
     public void setOnUpdateMenusListener(OnUpdateMenus updateMenus){
@@ -372,7 +427,6 @@ public class VideoMenuDisplay extends BasePresentation {
     private int randomImageID(){
         int[] images = {R.drawable.frame001,2};
         int img = images[(int)(0 + Math.random()*(10-1+1))];
-        Log.d(TAG,"test1024:-1-1:" + img);
         return img;
     }
 
@@ -380,21 +434,27 @@ public class VideoMenuDisplay extends BasePresentation {
         String[] strs = {"00000000", "11111111", "22222222", "33333333", "44444444",
                 "55555555", "66666666", "77777777", "88888888", "99999999", };
         String str = strs[(int)(0 + Math.random()*(10-1+1))];
-        Log.d(TAG,"test1024:00:" + str);
         return str;
     }
     private String randomName(){
         String[] strs = {"老兽的温泉", "不屈的花园", "娜娜奇的秘密基地", "巨人之杯", "诱惑的森林",
                 "树公寓的化石群", "尽头的漩涡", "黎明的箱庭", "绝界的祭坛", "奈落之底"};
         String str = strs[(int)(0 + Math.random()*(10-1+1))];
-        Log.d(TAG,"test1024:11:" + str);
         return str;
     }
     private String randomPrice(){
         String[] strs = {"8.00", "18.00", "28.00", "38.00", "48.00", "58.00", "68.00", "78.00", "88.00", "98.00"};
         String str = strs[(int)(0 + Math.random()*(10-1+1))];
-        Log.d(TAG,"test1024:22:" + str);
         return str;
+    }
+
+    private int randIcon(){
+        int icons[] = {R.drawable.sec_0,R.drawable.sec_1,R.drawable.sec_2,R.drawable.sec_3,R.drawable.sec_4,
+                R.drawable.sec_5,R.drawable.sec_6,R.drawable.sec_7,R.drawable.sec_8,R.drawable.sec_9};
+        int icon = icons[(int)(0 + Math.random()*(10-1+1))];
+        resIconID = icon;
+        return icon;
+
     }
 }
 

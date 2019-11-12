@@ -37,6 +37,8 @@
     <string name="goods_fruit">果物</string>
     <string name="goods_snacks">お菓子</string>
     <string name="goods_vegetables">野菜</string>
+    <string name="goods_non_standar"> 非標準品</string>
+
     <string name="goods_apple">リンゴ</string>
     <string name="goods_pear">ナシ</string>
     <string name="goods_banana">バナナ</string>
