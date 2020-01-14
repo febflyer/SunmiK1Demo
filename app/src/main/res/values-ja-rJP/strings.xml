@@ -66,6 +66,20 @@
     <string name="goods_7">クラッカー</string>
     <string name="goods_8">海苔味クラッカー</string>
 
+    <string name="sec_goods_1">Sec Goods1</string>
+    <string name="sec_goods_2">Sec Goods2</string>
+    <string name="sec_goods_3">Sec Goods3</string>
+    <string name="sec_goods_4">Sec Goods4</string>
+
+    <string name="sec_goods_5">Sec Goods5</string>
+    <string name="sec_goods_6">Sec Goods6</string>
+    <string name="sec_goods_7">Sec Goods7</string>
+    <string name="sec_goods_8">Sec Goods8</string>
+
+    <string name="sec_goods_9">Sec Goods9</string>
+    <string name="sec_goods_10">Sec Goods10</string>
+    <string name="sec_goods_11">Sec Goods11</string>
+    <string name="sec_goods_12">Sec Goods12</string>
 
     <!--提示用语-->
     <string name="tips_fruit_apple">リンゴを電子はかりの上に置いてください</string>
@@ -128,6 +142,7 @@
     <string name="menus_title1">SUNMIレジ実演デモ</string>
     <string name="menus_title2">SUNMIレジ</string>
     <string name="menus_title3">SUNMIへようこそ</string>
+    <string name="menus_title4">Second screen Demo</string>
     <string name="menus_number">商品コード</string>
     <string name="menus_unit_price">単価</string>
     <string name="menus_unit_num">個数/重さ</string>

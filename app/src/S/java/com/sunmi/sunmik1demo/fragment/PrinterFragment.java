@@ -5,6 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,11 +20,13 @@ import android.widget.TextView;
 import com.sunmi.sunmik1demo.BaseFragment;
 import com.sunmi.sunmik1demo.R;
 import com.sunmi.sunmik1demo.ui.MainActivity;
+import com.sunmi.sunmik1demo.ui.MoreActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.PrimitiveIterator;
 
-public class PrinterFragment extends BaseFragment implements View.OnClickListener{
+public class PrinterFragment extends BaseFragment implements View.OnClickListener,MoreActivity.FragmentKeyeventListener {
     private static final String TAG = "PrinterFragment";
 
     private Button btnPrinterText;
@@ -37,6 +43,17 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
     private ImageView ivImageArea;
     private TextView tvNoteArea;
     private ScrollView svNoteArea;
+
+    //给测试---------------------------------------
+//    private EditText etScannerTemp;     //临时功能
+    private String strScannerTemp;
+    private boolean bScannerTempFocus;
+
+    private int iTotalScanTimes = 0;
+    private int iErrScanTimes = 0;
+
+    MoreActivity activity = null;
+    //--------------------------------------------
 
     private static Runnable circulateRunnable;      //循环打印线程
     private int totalTextTimes;     //记录单次点击的总次数，优化界面显示
@@ -63,6 +80,8 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
         ivImageArea = (ImageView) view.findViewById(R.id.iv_image_area);
         tvNoteArea = (TextView) view.findViewById(R.id.tv_note_area);
         svNoteArea = (ScrollView) view.findViewById(R.id.sv_note_area);
+
+//        etScannerTemp = view.findViewById(R.id.et_scanner_temp);
     }
 
     @Override
@@ -72,8 +91,38 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
         btnPrinterCirculate.setOnClickListener(this);
         ivImageArea.setOnClickListener(this);
 
+        //测试---
         totalTextTimes = 0;
         totalImageTimes = 0;
+
+        activity = (MoreActivity)getActivity();
+        activity.setFragmentKeyeventListener(this);
+
+//        etScannerTemp.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                bScannerTempFocus = b;
+//            }
+//        });
+//        etScannerTemp.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+////                Log.d("test1111","222");
+//                strScannerTemp = etScannerTemp.getText().toString();
+//                iTotalScanTimes = 0;
+//                iErrScanTimes = 0;
+//            }
+//        });
     }
 
     @Override
@@ -169,4 +218,46 @@ public class PrinterFragment extends BaseFragment implements View.OnClickListene
             }
         });
     }
+
+    //191112.给测试的---------------------------------------------
+    @Override
+    public void onKeyEventListener(String key){
+        if (bScannerTempFocus || strScannerTemp == null)
+            return;
+
+        iTotalScanTimes += 1;
+        Log.d("test1111","str[" + strScannerTemp +"]  key[" + key + "]");
+        if(!strScannerTemp.equals(key)) {
+//            Log.d("test1111","str[" + strScannerTemp +"]  key[" + key + "]");
+            iErrScanTimes += 1;
+        }
+
+        long curTime = System.currentTimeMillis();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int curTimes = iTotalScanTimes;
+                while (true) {
+                    if (curTimes != iTotalScanTimes)      //期间又扫了
+                        return;
+                    if (System.currentTimeMillis() - curTime > 5000) {
+                        append("扫码测试元数据[" + strScannerTemp + "]\r\n"
+                                + "总次数[" + iTotalScanTimes + "]\t异常次数[" + iErrScanTimes + "]\r\n");
+                        return;
+                    }
+                }
+            }
+        });
+        thread.start();
+
+
+//        iTotalScanTimes += 1;
+//        if(!strScannerTemp.equals(key)) {
+//            iErrScanTimes += 1;
+//            append("扫码测试元数据[" + strScannerTemp + "]\r\n"
+//                    + "总次数[" + iTotalScanTimes + "]\t异常次数[" + iErrScanTimes + "]" + "异常数据[" + key + "]\r\n");
+//        }
+
+    }
+    //---------------------------------------------
 }

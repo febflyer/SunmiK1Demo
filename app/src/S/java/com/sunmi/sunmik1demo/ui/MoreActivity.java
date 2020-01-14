@@ -92,13 +92,15 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int action = event.getAction();
-        if (getFirstFragment() instanceof BackgroundManagerFragment || getFirstFragment() instanceof PrinterFragment) {
+//        if (getFirstFragment() instanceof BackgroundManagerFragment || getFirstFragment() instanceof PrinterFragment) {
+        if (getFirstFragment() instanceof BackgroundManagerFragment) {
+
             return super.dispatchKeyEvent(event);
         }
         switch (action) {
             case KeyEvent.ACTION_DOWN:
-                int unicodeChar = event.getUnicodeChar();
-                sb.append((char) unicodeChar);
+//                int unicodeChar = event.getUnicodeChar();
+//                sb.append((char) unicodeChar);
                 if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) {
                     return super.dispatchKeyEvent(event);
                 }
@@ -117,31 +119,112 @@ public class MoreActivity extends BaseActivity implements View.OnClickListener {
                 if (event.getKeyCode() == KeyEvent.KEYCODE_POWER) {
                     return super.dispatchKeyEvent(event);
                 }
-                myHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (sb.length() > 0) {
-                            if (deviceFragment.isVisible() && deviceFragment.isShowScanResult) {
-                                deviceFragment.append(sb.toString());
-                            }
+//                myHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (sb.length() > 0) {
+//                            if (deviceFragment.isVisible() && deviceFragment.isShowScanResult) {
+//                                deviceFragment.append(sb.toString());
+//                            }
+//
+//                            if (getFirstFragment() instanceof GoodsManagerFragment) {
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putString("id",sb.toString());
+//                                    backgroundManagerFragment.setArguments(bundle);
+//                                    replaceContent(backgroundManagerFragment, false);
+//                            }
+//                            if (getFirstFragment() instanceof PrinterFragment){
+//                                //191112,给测试用的------------------------------
+////                                Log.d("test1111","-1-1-1");
+//                                fragmentKeyeventListener.onKeyEventListener(sb.toString());
+//                                //--------------------------------------
+//                            }
+//
+//                            sb.setLength(0);
+//                        }
+//                    }
+//                }, 300);
+                int unicodeChar = event.getUnicodeChar();
+                sb.append((char) unicodeChar);
+                Log.e("MoreActivity", "dispatchKeyEvent: " + unicodeChar + " " + event.getKeyCode());
+                len++;
+                startScan();
 
-                            if (getFirstFragment() instanceof GoodsManagerFragment) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("id",sb.toString());
-                                    backgroundManagerFragment.setArguments(bundle);
-                                    replaceContent(backgroundManagerFragment, false);
-                            }
+                if (getFirstFragment() instanceof PrinterFragment)
+                    return super.dispatchKeyEvent(event);
 
-                            sb.setLength(0);
-                        }
-                    }
-                }, 300);
-                return true;
+                return true;    //这里有个万恶的return true
             default:
                 break;
         }
         return super.dispatchKeyEvent(event);
     }
+
+    //191112,给测试用的------------------------------------
+    boolean isScaning = false;
+    int len = 0;
+    int oldLen = 0;
+
+    private void startScan() {
+        if (isScaning) {
+            return;
+        }
+        isScaning = true;
+        timerScanCal();
+    }
+
+    private void timerScanCal() {
+        oldLen = len;
+        myHandler.postDelayed(scan, 100);
+    }
+
+    Runnable scan = new Runnable() {
+        @Override
+        public void run() {
+            if (oldLen != len) {
+                timerScanCal();
+                return;
+            }
+            isScaning = false;
+            if (sb.length() > 0) {
+                if (deviceFragment.isVisible() && deviceFragment.isShowScanResult) {
+                    deviceFragment.append(sb.toString());
+                }
+
+                if (getFirstFragment() instanceof GoodsManagerFragment) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id",sb.toString());
+                    backgroundManagerFragment.setArguments(bundle);
+                    replaceContent(backgroundManagerFragment, false);
+                }
+                if (getFirstFragment() instanceof PrinterFragment){
+                    //191112,给测试用的------------------------------
+//                                Log.d("test1111","-1-1-1");
+//                    fragmentKeyeventListener.onKeyEventListener(sb.toString().replaceAll("\\p{C}", ""));    //正则去掉不可见字符
+
+//                    fragmentKeyeventListener.onKeyEventListener(sb.toString().replaceAll("[\\x00-\\x1F\\x7F]", ""));   //正则去掉不可见字符,ASCII写法
+                    /*这是去掉除回车/换行(即\u000A,\u000D)以外的不可见字符,Unicode写法**/
+                    fragmentKeyeventListener.onKeyEventListener(sb.toString().replaceAll("[\u0000-\u0009\u000B\u000C\u000E-\u001F\u007F]", ""));
+
+
+                    //--------------------------------------
+                }
+
+                sb.setLength(0);
+            }
+        }
+    };
+
+    public interface FragmentKeyeventListener{
+        void onKeyEventListener(String key);
+    }
+
+    private FragmentKeyeventListener fragmentKeyeventListener = null;
+
+    public void setFragmentKeyeventListener(FragmentKeyeventListener fragmentKeyeventListener) {
+        this.fragmentKeyeventListener = fragmentKeyeventListener;
+    }
+    //---------------------------------------------
 
     private void initView() {
         ivBack = findViewById(R.id.iv_back);

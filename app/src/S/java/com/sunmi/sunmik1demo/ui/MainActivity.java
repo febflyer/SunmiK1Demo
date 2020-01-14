@@ -3,12 +3,14 @@ package com.sunmi.sunmik1demo.ui;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Outline;
 import android.media.AudioManager;
@@ -215,6 +217,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        switchLanguage(1);  //切换语言系统
+
         setContentView(R.layout.activity_main);
         DisplayMetrics dm = new DisplayMetrics();
         getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -237,6 +242,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //        }
 
 //        isVertical = false;
+
 
         EventBus.getDefault().register(this);
         menus.clear();
@@ -976,6 +982,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     bundle1.putString("MONEY", tvCarMoeny.getText().toString());
                     bundle1.putString("GOODS", goods_data);
                     bundle1.putInt("PAYMODE", payModes);
+
                     payDialog.setArguments(bundle1);
                     payDialog.show(getSupportFragmentManager(), "payDialog");
                 }
@@ -1370,6 +1377,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         else
             return false;
     }
+
+    //add by mayflower on 191204
+    private void switchLanguage(int lang){
+        Resources resources = getResources();//获得res资源对象
+        Configuration config = resources.getConfiguration();//获得设置对象
+        DisplayMetrics dm = resources.getDisplayMetrics();//获得屏幕参数：主要是分辨率，像素等
+
+        switch (lang){
+            case 0:
+                config.locale = Locale.SIMPLIFIED_CHINESE;
+                break;
+            case 1:
+                config.locale = Locale.ENGLISH;
+                break;
+            case 2:
+                break;
+        }
+        resources.updateConfiguration(config, dm);
+    }
+    ///////////////////////////////////////////////
 
     private View createBottomSheetView() {
         View bottomSheet = LayoutInflater.from(this).inflate(R.layout.sheet_layout, bottomSheetLayout, false);

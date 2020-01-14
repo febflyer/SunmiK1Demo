@@ -147,7 +147,7 @@ public class KCodeScannerPresenter2 {
             isWaittingResponse = true;
 
             String cmdTmp = strCmd;
-            if (!isNLSCommand)  //如果除了有别的系列指令，可以把这个逻辑拿出去，直接发整个儿的指令
+            if (!isNLSCommand)  //如果有别的系列指令，可以把这个逻辑拿出去，直接发整个儿的指令
                 cmdTmp = ByteUtils.hexStr2Str(PREFIX_HEX + ByteUtils.str2HexString(strCmd) + SUFFIX_HEX);
             Log.i(TAG,"SendThread[hex]:" + cmdTmp + "[" + ByteUtils.str2HexString(cmdTmp) + "]");
 

@@ -59,7 +59,8 @@ public class VideoDisplay extends BasePresentation {
         mPlayerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                clickLinster.onClick();
+                if (null != clickLinster)
+                    clickLinster.onClick();
                 return false;
             }
         });

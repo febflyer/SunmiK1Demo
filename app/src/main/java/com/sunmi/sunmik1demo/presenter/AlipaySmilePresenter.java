@@ -11,6 +11,7 @@ import com.sunmi.sunmik1demo.R;
 import com.sunmi.sunmik1demo.bean.MenuBean;
 import com.sunmi.sunmik1demo.model.AlipaySmileModel;
 import com.sunmi.sunmik1demo.utils.ResourcesUtils;
+import com.sunmi.sunmik1demo.utils.ScreenManager;
 
 import openapi.ZimIdRequester;
 
@@ -146,6 +147,10 @@ public class AlipaySmilePresenter implements AlipaySmileModel.AlipayModelCallBac
         if (!TextUtils.isEmpty(phoneNumber)) {
             params.put(KEY_IPHONE_NUMBER, phoneNumber);
         }
+        //将刷脸显示到副屏
+//        if (ScreenManager.getInstance().getPresentationDisplays()!=null) {
+//            params.put("smile_mode", "1");
+//        }
         zoloz.zolozVerify(mZimId, params, new ZolozCallback() {
             @Override
             public void response(Map smileToPayResponse) {

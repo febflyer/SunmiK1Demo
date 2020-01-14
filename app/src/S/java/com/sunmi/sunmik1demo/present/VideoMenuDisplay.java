@@ -2,6 +2,8 @@ package com.sunmi.sunmik1demo.present;
 
 import android.app.Presentation;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +13,7 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -53,6 +56,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -120,6 +124,9 @@ public class VideoMenuDisplay extends BasePresentation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        switchLanguage(1);  //设定语言
+
         if (ScreenManager.getInstance().isMinScreen()) {
             setContentView(R.layout.vice_video_menu_min_layout);
 
@@ -455,6 +462,24 @@ public class VideoMenuDisplay extends BasePresentation {
         resIconID = icon;
         return icon;
 
+    }
+
+    public void switchLanguage(int lang){
+        Resources resources = getResources();//获得res资源对象
+        Configuration config = resources.getConfiguration();//获得设置对象
+        DisplayMetrics dm = resources.getDisplayMetrics();//获得屏幕参数：主要是分辨率，像素等
+
+        switch (lang){
+            case 0:
+                config.locale = Locale.SIMPLIFIED_CHINESE;
+                break;
+            case 1:
+                config.locale = Locale.ENGLISH;
+                break;
+            case 2:
+                break;
+        }
+        resources.updateConfiguration(config, dm);
     }
 }
 
