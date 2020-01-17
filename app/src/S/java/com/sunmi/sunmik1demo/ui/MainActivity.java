@@ -71,6 +71,7 @@ import com.sunmi.sunmik1demo.presenter.HCardSenderPresenter;
 import com.sunmi.sunmik1demo.presenter.KCardReaderPresenter;
 import com.sunmi.sunmik1demo.presenter.KCodeScannerPresenter2;
 import com.sunmi.sunmik1demo.presenter.KPrinterPresenter;
+import com.sunmi.sunmik1demo.presenter.P1POSPresenter;
 import com.sunmi.sunmik1demo.presenter.PayMentPayPresenter;
 import com.sunmi.sunmik1demo.presenter.PrinterPresenter;
 import com.sunmi.sunmik1demo.presenter.ScalePresenter;
@@ -200,6 +201,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private PayMentPayPresenter payMentPayPresenter;
     private ScalePresenter scalePresenter;
     private UnionPayPreseter unionPayPreseter;
+    private P1POSPresenter p1POSPresenter;
     Input2Dialog mInputDialog;
 
     //add by MayFlower----------------------------------------
@@ -251,7 +253,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initAction();
 
         //add by mayflower,for modules--------------------------------
-        initScanner();                  //串口扫码器
+//        initScanner();                  //串口扫码器
         bindCardService();              //非接
         connectCardSenderService();     //收发卡机
         //------------------------------------------------------------
@@ -810,10 +812,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         alipaySmilePresenter = new AlipaySmilePresenter(this, alipaySmileModel);
         payMentPayPresenter = new PayMentPayPresenter(this);
         unionPayPreseter = new UnionPayPreseter(this);
+        p1POSPresenter = P1POSPresenter.getInstance(this);
 
         payDialog.setAlipaySmilePresenter(alipaySmilePresenter);
         payDialog.setPayMentPayPresenter(payMentPayPresenter);
         payDialog.setUnionPayPreseter(unionPayPreseter);
+        payDialog.setP1POSPresenter(p1POSPresenter);
 
         payDialog.setCompleteListener(new PayDialog.OnCompleteListener() {
             @Override
@@ -1480,6 +1484,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         soundPool.release();
 
         //add by mayflower--------------
+        p1POSPresenter.closePOSReceiver();
+
         kCodeScannerPresenter.stop();
         kCodeScannerPresenter = null;
 

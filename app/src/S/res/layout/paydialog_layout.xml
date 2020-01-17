@@ -77,6 +77,19 @@
                     android:textColor="#FFFFFF"
                     android:textSize="13.33sp" />
 
+                <com.sunmi.sunmik1demo.view.MyRadioButton
+                    android:id="@+id/rbfour"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawablePadding="6.66dp"
+                    android:drawableTop="@drawable/more_menu_3"
+                    android:gravity="center_horizontal"
+                    android:text="@string/pay_p1_pos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13.33sp" />
+
             </RadioGroup>
 
             <LinearLayout
@@ -104,6 +117,14 @@
 
                 <ImageView
                     android:id="@+id/iv_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/pay_arrow"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/iv_bottom2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -299,6 +320,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:visibility="gone">
 
                 <TextView
@@ -308,6 +330,15 @@
                     android:text="@string/pay_paying"
                     android:textColor="#000000"
                     android:textSize="21.33sp" />
+
+                <Button
+                    android:id="@+id/btn_cancal_paying"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/pay_cancel_paying"
+                    android:textColor="#000000"
+                    android:textSize="21.33sp"/>
 
             </LinearLayout>
 

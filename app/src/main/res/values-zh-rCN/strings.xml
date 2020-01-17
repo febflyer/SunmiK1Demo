@@ -122,8 +122,10 @@
     <string name="pay_face">人脸支付</string>
     <string name="pay_code">扫码支付</string>
     <string name="pay_unipay_code">银联支付</string>
+    <string name="pay_p1_pos">POS支付</string>
     <string name="pay_face_tips">请将面部靠近摄像头识别范围，开始付款 </string>
     <string name="pay_face_tips_pay">温馨提示：人脸支付为真实定额扣款</string>
+    <string name="pay_pos_tips">请刷POS机付款 </string>
     <string name="pay_noface">暂未发现可用的外置设备</string>
     <string name="pay_noface_change">请检查连接并重启应用后重试，或选用其他支付方式</string>
     <string name="pay_fail_tips">请重新付款或选择其他方式 </string>
@@ -133,6 +135,7 @@
     <string name="pay_confirm_true">已收款：</string>
     <string name="pay_pay_true">已付款：</string>
     <string name="pay_paying">支付中...</string>
+    <string name="pay_cancel_paying">取消支付</string>
     <string name="pay_repay">重新支付</string>
     <string name="pay_get_moeny">开始付款</string>
     <string name="pay_fail">支付失败！</string>

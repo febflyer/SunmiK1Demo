@@ -120,8 +120,10 @@
     <string name="pay_face">Face pay</string>
     <string name="pay_code">QRCode pay</string>
     <string name="pay_unipay_code">Union pay</string>
+    <string name="pay_p1_pos">POS pay</string>
     <string name="pay_face_tips">Close your face to the camera and start paying</string>
     <string name="pay_face_tips_pay">Tips: Face pay is a real charge</string>
+    <string name="pay_pos_tips">Swiping card by the POS to start paying</string>
     <string name="pay_noface">No available external equipment</string>
     <string name="pay_noface_change">Check the connection or choose other payment methods</string>
     <string name="pay_fail_tips">Please pay again or choose other means</string>
@@ -131,6 +133,7 @@
     <string name="pay_confirm_true">Receivables：</string>
     <string name="pay_pay_true">Already paid: </string>
     <string name="pay_paying">Paying...</string>
+    <string name="pay_cancel_paying">CancelPaying</string>
     <string name="pay_repay">Try again</string>
     <string name="pay_get_moeny">PAY NOW</string>
     <string name="pay_fail">Payment failed!</string>

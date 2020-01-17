@@ -35,6 +35,7 @@ import com.sunmi.sunmik1demo.bean.PaymentResponse;
 import com.sunmi.sunmik1demo.bean.ThirdPayEvent;
 import com.sunmi.sunmik1demo.fragment.PayModeSettingFragment;
 import com.sunmi.sunmik1demo.present.TextDisplay;
+import com.sunmi.sunmik1demo.presenter.P1POSPresenter;
 import com.sunmi.sunmik1demo.presenter.PayMentPayPresenter;
 import com.sunmi.sunmik1demo.presenter.UnionPayPreseter;
 import com.sunmi.sunmik1demo.receiver.ResultReceiver;
@@ -63,6 +64,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
     public final static int PAY_MODE_3 = 3;//真实二维码扣款
     public final static int PAY_MODE_4 = 4;//
     public final static int PAY_MODE_5 = 5;//银联刷脸
+    public final static int PAY_MODE_6 = 6;//P1 POS刷卡支付,本次是配合P1临时演示功能
 
     public static String PayMoney = "0.01";
 
@@ -71,6 +73,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
     private ImageView ivTop;
     private ImageView ivMid;
     private ImageView ivBottom;
+    private ImageView ivBottom2;
     private ImageView ivLogo;
     private TextView tvDescrib;
     private TextView tvMoney;
@@ -81,9 +84,10 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
     private LinearLayout llyPay;
     private LinearLayout llyPayComplete;
     private LinearLayout llPaying, llNoFace, llCanPay, llPayFail;
+    private Button btnCancelPaying;
     private TextView noFaceTitle;
     private TextView noFaceContent;
-    private RadioButton rbOne, rbTwo, rbthree;
+    private RadioButton rbOne, rbTwo, rbthree, rbfour;
     private String mMoney;
     private TextView tvMoneyComplete;
     boolean isShow = false;//防多次点击
@@ -93,6 +97,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
     private StringBuilder sb = new StringBuilder();
     private AlipaySmilePresenter alipaySmilePresenter;
     private PayMentPayPresenter payMentPayPresenter;
+    private P1POSPresenter p1POSPresenter;
 
 
     private UnionPayPreseter unionPayPreseter;
@@ -106,6 +111,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
     public final static int PAY_CASH = 1;
     public final static int PAY_CODE = 2;
     public final static int PAY_FACE = 4;
+    public static final int PAY_POS  = 8;
     public final static String PAY_MODE_KEY = "PAY_MODE_KEY";
     private int supportPayMode = 7;
     boolean payment;//是否为收银台支付
@@ -164,6 +170,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
         ivTop = (ImageView) view.findViewById(R.id.iv_top);
         ivMid = view.findViewById(R.id.iv_mid);
         ivBottom = (ImageView) view.findViewById(R.id.iv_bottom);
+        ivBottom2 = (ImageView) view.findViewById(R.id.iv_bottom2);
         ivLogo = (ImageView) view.findViewById(R.id.iv_logo);
         tvDescrib = (TextView) view.findViewById(R.id.tv_describ);
         tvMoney = (TextView) view.findViewById(R.id.tv_money);
@@ -173,12 +180,14 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
         llyPay = (LinearLayout) view.findViewById(R.id.lly_pay);
         llyPayComplete = (LinearLayout) view.findViewById(R.id.lly_pay_complete);
         llPaying = view.findViewById(R.id.ll_paying);
+        btnCancelPaying = view.findViewById(R.id.btn_cancal_paying);
         llCanPay = (LinearLayout) view.findViewById(R.id.ll_can_pay);
         llNoFace = (LinearLayout) view.findViewById(R.id.ll_no_face);
         llPayFail = (LinearLayout) view.findViewById(R.id.ll_pay_fail);
         rbOne = (RadioButton) view.findViewById(R.id.rbone);
         rbTwo = (RadioButton) view.findViewById(R.id.rbtwo);
         rbthree = view.findViewById(R.id.rbthree);
+        rbfour = view.findViewById(R.id.rbfour);
         tvMoneyComplete = (TextView) view.findViewById(R.id.tv_money_complete);
         tvFaccPayTips = view.findViewById(R.id.tv_face_pay);
         tv_pay_fail_money = view.findViewById(R.id.tv_pay_fail_money);
@@ -191,7 +200,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
         rbOne.setAlpha(1f);
         rbTwo.setAlpha(0.7f);
         rbthree.setAlpha(0.7f);
-
+        rbfour.setAlpha(0.7f);
 
     }
 
@@ -210,6 +219,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         ivTop.setVisibility(View.VISIBLE);
                         ivMid.setVisibility(View.INVISIBLE);
                         ivBottom.setVisibility(View.INVISIBLE);
+                        ivBottom2.setVisibility(View.INVISIBLE);
                         tvFaccPayTips.setVisibility(View.GONE);
                         llCanPay.setVisibility(View.VISIBLE);
                         llNoFace.setVisibility(View.GONE);
@@ -224,6 +234,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         rbOne.setAlpha(1f);
                         rbTwo.setAlpha(0.7f);
                         rbthree.setAlpha(0.7f);
+                        rbfour.setAlpha(0.7f);
 
                         updateTextDisplay(0, ResourcesUtils.getString(R.string.pay_give_money) + mMoney, 0);
 
@@ -236,6 +247,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         ivTop.setVisibility(View.INVISIBLE);
                         ivMid.setVisibility(View.VISIBLE);
                         ivBottom.setVisibility(View.INVISIBLE);
+                        ivBottom2.setVisibility(View.INVISIBLE);
                         tvFaccPayTips.setVisibility(View.GONE);
                         llCanPay.setVisibility(View.VISIBLE);
                         llNoFace.setVisibility(View.GONE);
@@ -250,6 +262,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         rbOne.setAlpha(0.7f);
                         rbTwo.setAlpha(1);
                         rbthree.setAlpha(0.7f);
+                        rbfour.setAlpha(0.7f);
 
                         updateTextDisplay(1, ResourcesUtils.getString(R.string.pay_give_money) + ResourcesUtils.getString(R.string.units_money_units) + PayMoney, 0);
                         break;
@@ -261,9 +274,17 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         ivTop.setVisibility(View.INVISIBLE);
                         ivMid.setVisibility(View.INVISIBLE);
                         ivBottom.setVisibility(View.VISIBLE);
+                        ivBottom2.setVisibility(View.INVISIBLE);
                         rbOne.setAlpha(0.7f);
                         rbTwo.setAlpha(0.7f);
                         rbthree.setAlpha(1);
+                        rbfour.setAlpha(0.7f);
+
+                        tvFaccPayTips.setVisibility(View.GONE);
+                        llCanPay.setVisibility(View.VISIBLE);
+                        llNoFace.setVisibility(View.GONE);
+                        llPayFail.setVisibility(View.GONE);
+
                         if (!isCanFacePay()) {
                             showNoCanFacePay();
                             return;
@@ -277,11 +298,41 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         btnOk.setText(ResourcesUtils.getString(getContext(), R.string.pay_get_moeny));
                         updateTextDisplay(2, ResourcesUtils.getString(R.string.pay_give_money) + ResourcesUtils.getString(R.string.units_money_units) + PayMoney, 0);
                         break;
+                    case R.id.rbfour:
+                        payMode = PAY_MODE_6;
+                        ivTop.setVisibility(View.INVISIBLE);
+                        ivMid.setVisibility(View.INVISIBLE);
+                        ivBottom.setVisibility(View.INVISIBLE);
+                        ivBottom2.setVisibility(View.VISIBLE);
+                        rbOne.setAlpha(0.7f);
+                        rbTwo.setAlpha(0.7f);
+                        rbthree.setAlpha(0.7f);
+                        rbfour.setAlpha(1);
+
+                        tvFaccPayTips.setVisibility(View.GONE);
+                        llCanPay.setVisibility(View.VISIBLE);
+                        llNoFace.setVisibility(View.GONE);
+                        llPayFail.setVisibility(View.GONE);
+
+//                        if (!bP1Connected){
+//                            showNoCanPosPay();
+//                            return;
+//                        }
+                        tv_name.setText(ResourcesUtils.getString(getContext(), R.string.pay_total_moeny) + mMoney + "  " + ResourcesUtils.getString(getContext(), R.string.pay_give_money));
+                        tvMoney.setText(ResourcesUtils.getString(getContext(), R.string.units_money_units) + PayMoney);
+                        tvFaccPayTips.setVisibility(View.GONE);
+                        tvDescrib.setText(ResourcesUtils.getString(getContext(), R.string.pay_pos_tips));
+                        ivLogo.setImageResource(R.drawable.paypos);
+                        btnOk.setVisibility(View.VISIBLE);
+                        btnOk.setText(ResourcesUtils.getString(getContext(), R.string.pay_get_moeny));
+                        updateTextDisplay(2, ResourcesUtils.getString(R.string.pay_give_money) + ResourcesUtils.getString(R.string.units_money_units) + PayMoney, 0);
+                        break;
                     default:
                         break;
                 }
 
                 switch (supportPayMode) {
+
                     case PAY_CASH + PAY_CODE + PAY_FACE:
                         break;
                     case PAY_CODE + PAY_FACE:
@@ -298,6 +349,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
         btnComplete.setOnClickListener(this);
         btnOk.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        btnCancelPaying.setOnClickListener(this);
 
         getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -420,6 +472,10 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
         this.unionPayPreseter = unionPayPreseter;
     }
 
+    public void setP1POSPresenter(P1POSPresenter p1POSPresenter) {
+        this.p1POSPresenter = p1POSPresenter;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -454,6 +510,12 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         String orderId = "" + (System.currentTimeMillis() / 1000) + (int) (Math.random() * 9000 + 1000);
                         payMentPayPresenter.startPayCode(orderId, "", 1);
                     }
+                }else if (payMode == 6){    //POS付款,临时演示
+                    llyPay.setVisibility(View.GONE);
+                    llPaying.setVisibility(View.VISIBLE);
+                    p1POSPresenter.startPayByPOS(mMoney.substring(1));  //mMoney的第一个字符是¥,所以得去掉
+                    p1POSPresenter.setPOSPayCallback(posPayCallback);
+
                 } else {
                     startFacePaying();
                 }
@@ -469,11 +531,16 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         completeListener.onComplete(payMode);
                     } else if (rbthree.isChecked()) {
                         completeListener.onComplete(payMode);
+                    } else if (rbfour.isChecked()) {
+                        completeListener.onComplete(payMode);
                     }
                 }
                 dismiss();
                 break;
-
+            case R.id.btn_cancal_paying:    //中断支付
+                isPay = false;
+                showFail("pos cancel");
+                break;
 
             case R.id.paymode_one:
                 rbOne.performClick();
@@ -627,6 +694,22 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
             showFail(msg);
         }
 
+    };
+
+    //P1 POS刷卡支付回调
+    P1POSPresenter.POSPayCallback posPayCallback = new P1POSPresenter.POSPayCallback() {
+        @Override
+        public void onSuc() {
+            showSuccess(payMode);
+        }
+
+        @Override
+        public void onFail() {
+            if (isPay) {
+                isPay = false;
+                showFail("pos fail");
+            }
+        }
     };
 
     //选择交易方式

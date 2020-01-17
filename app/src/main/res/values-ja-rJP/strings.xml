@@ -116,8 +116,10 @@
     <string name="pay_face">顔認証決済</string>
     <string name="pay_code">QRコード決済</string>
     <string name="pay_unipay_code">銀聯決済</string>
+    <string name="pay_p1_pos">POS決済</string>
     <string name="pay_face_tips">顔をカメラの認識範囲に近づけ、支払を開始してください</string>
     <string name="pay_face_tips_pay">注意：顔認証支払は実際に引き落としされます</string>
+    <string name="pay_pos_tips">カードで支払いをPOS机で開始します</string>
     <string name="pay_noface">外部接続機器を確認できませんでした</string>
     <string name="pay_noface_change">接続を確認し、もう一度お試しください。もしくは、他の決済方法を選択してください。</string>
     <string name="pay_fail_tips">もう一度決済を実行してください。もしくは、他の決済方法を選択してください。</string>
@@ -127,6 +129,7 @@
     <string name="pay_confirm_true">受取り済：</string>
     <string name="pay_pay_true">支払済：</string>
     <string name="pay_paying">決済中...</string>
+    <string name="pay_cancel_paying">決済取り消し</string>
     <string name="pay_repay">再決済</string>
     <string name="pay_get_moeny">支払を開始</string>
     <string name="pay_fail">決済失敗</string>
